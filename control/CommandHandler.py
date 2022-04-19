@@ -3,23 +3,21 @@ import discord
 from datetime import datetime
 from control.GuildHandler import GuildHandler
 
-
-
+# This class handles incoming commands from different guilds
 class CommandHandler:
-    def __init__(self):
-        self.guildHandler = GuildHandler()
+    def __init__(self, client_name):
+        self.guildHandler = GuildHandler(client_name)
 
+    # Counts message send in the bind channel
     async def countUp(self, guild):
-        print("Counting up!")
         musicBot = self.guildHandler.get_MusicBot(guild.id)
         musicBot.msg_counter = musicBot.msg_counter + 1
-
-        print("Msgs: "+str(musicBot.msg_counter))
 
         if musicBot.msg_counter >= 100:
             musicBot.msg_counter = 0
             await musicBot.clear_messages()
 
+    # Main Function from this class which handles the incoming messages
     async def handle(self, msg: discord.message):
         # Declaring variables
         guild = msg.guild
@@ -77,7 +75,7 @@ class CommandHandler:
             await msg.channel.send("Sie müssen den Bot zuerst mit dem Befehl '!bind' einem Channel zuordnen!")
             return
 
-        # Sets new prefix for your guild
+        # Executes the required function!
         if command == "prefix":
             status, responseMessage = await musicBot.set_prefix(args[0])      
         elif command == "bind":
@@ -85,13 +83,11 @@ class CommandHandler:
         elif command == "nick":
             status, responseMessage = await musicBot.set_nick(guild, args)
         elif command == "play":
-
-            # Sleeps the thread for a specific time, depends on the execution timeout
+            # Sleeps the thread for a specific time, depends on the execution timeout (This sleep timer is important to stop simultanious execution of the play function!)
             if difference <= 1.5:
                 await asyncio.sleep(1)
 
             status, responseMessage = await musicBot.play(guild, msg.author.name, args)
-
         elif command == "stop":
             status, responseMessage = await musicBot.stop()
         elif command == "skip":

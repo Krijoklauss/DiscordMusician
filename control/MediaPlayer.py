@@ -8,9 +8,10 @@ possible_prefixes = ["!", "?", "-", ",", ".", "*", "'", "#", "=", "&", "$", "%",
 
 
 class MediaPlayer:
-    def __init__(self, identity, pref="!", bounded=False, chan=""):
+    def __init__(self, identity, client_name, pref="!", bounded=False, chan=""):
         self.id = identity
         self.guild = None
+        self.client_name = client_name
         self.prefix = pref
         self.msg_counter = 0
         self.is_bound = bounded
@@ -81,9 +82,8 @@ class MediaPlayer:
             nickname += name + " "
 
         myMember : discord.member = None
-        client_name = "MusicPlayer187"
         for member in guild.members:
-            if member.name == client_name:
+            if member.name == self.client_name:
                 myMember = member
                 break
 
