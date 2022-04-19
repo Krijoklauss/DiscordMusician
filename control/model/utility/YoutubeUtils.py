@@ -1,0 +1,64 @@
+from youtubesearchpython import Video
+from control.model.utility.Song import Song
+from youtubesearchpython import Playlist
+from youtubesearchpython import VideosSearch
+from youtubesearchpython import StreamURLFetcher
+from control.model.utility.SpotifyUtils import SpotifyUtils
+
+
+class YoutubeUtils:
+    def __init__(self):
+        self.url_fetcher = StreamURLFetcher()
+        self.spotify = SpotifyUtils(self)
+        pass
+
+    def getSong(self, args):
+
+        if str(args[0]).__contains__("https://open.spotify.com/track/"):
+            return self.spotify.spotify_link_to_song(args[0])
+        elif str(args[0]).__contains__("https://www.youtube.com/watch?v="):
+            song_link = args[0]
+            video = Video.get(song_link)
+            videoInfo = Video.getInfo(song_link)
+        else:
+            # Creating new Query
+            query = ""
+            for arg in args:
+                query += arg + " "
+
+            # Searching for Videos with given query!
+            search = VideosSearch(query, limit=5)
+            results = search.result()['result']
+
+            # Taking first video found in query
+            myVideo = None
+            for result in results:
+                if result['type'] == 'video':
+                    # This is my first best result!
+                    myVideo = result
+                    break
+
+            if myVideo == None:
+                return False, "Das Video konnte nicht gefunden werden!"
+            
+            song_link = myVideo['link']
+            video = Video.get(song_link)
+            videoInfo = Video.getInfo(song_link)
+
+
+        # Last Process is always the same
+        if int(videoInfo['duration']['secondsText']) > (3600 * 1.5):
+            return False, "Der angegebene Song ist zu lang!"
+
+        if video is None or videoInfo is None:
+            return False, "Es konnte kein vernünftiges Audio-Format gefunden werden!"
+
+        # Fetch audio streamable url
+        player_link = self.url_fetcher.get(video, 251)
+        print("Player Link: "+str(player_link))
+
+        return Song(song_link, player_link, videoInfo['title'], int(videoInfo['duration']['secondsText']), videoInfo['viewCount']['text'])
+
+    def getPlaylistSongs(self, playlist_link):
+        playlist = Playlist.get(playlist_link)
+        return self.getSong("https://www.youtube.com/watch?v="+str(playlist['videos'][0]['id']))
