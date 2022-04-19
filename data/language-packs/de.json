@@ -1,0 +1,19 @@
+{
+    "commands": {
+        "prefix": "",
+        "bind": "",
+        "nick": "",
+        "play": "",
+        "stop": "",
+        "skip": "",
+        "pause": "",
+        "resume": "",
+        "seek": "",
+        "np": "",
+        "queue": "",
+        "clear": "",
+        "cleaner": "",
+        "help": "",
+        "lang": ""
+    }
+}

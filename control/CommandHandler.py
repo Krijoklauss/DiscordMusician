@@ -36,9 +36,6 @@ class CommandHandler:
         # Updates the last command executed timer
         self.guildHandler.set_Last_Command_Time(guild.id)
         
-        # Shows difference of time in console
-        print("Difference between last commands is: "+str(difference))
-        
         # Checking for correct channel
         if musicBot.is_bound:
             if channel != musicBot.bound_channel:
@@ -86,7 +83,6 @@ class CommandHandler:
             # Sleeps the thread for a specific time, depends on the execution timeout (This sleep timer is important to stop simultanious execution of the play function!)
             if difference <= 1.5:
                 await asyncio.sleep(1)
-
             status, responseMessage = await musicBot.play(guild, msg.author.name, args)
         elif command == "stop":
             status, responseMessage = await musicBot.stop()

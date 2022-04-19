@@ -1,7 +1,7 @@
 # Imports
+from click import command
 import discord
 from os import environ
-from datetime import datetime
 from control.CommandHandler import CommandHandler
 
 # Declaring required Intents
@@ -11,14 +11,24 @@ inten.members = True
 # Declaring Bot token and initiating new discord.Client()
 token = environ.get("MUSIC_BOT")
 client = discord.Client(intents=inten)
-client_name = client.user.name
 
-# Init new CommandHandler class
-commandHandler = CommandHandler(client_name)
+commandHandler = None
+client_name = None
 
 # Event which is called after the bot is ready for production
 @client.event
 async def on_ready():
+    global client, client_name, commandHandler
+
+    # Local output for dev to see if the Bot is ready! (No need to spam all guild channels on every restart!)
+    print("Bot is ready!")
+
+    # Init values with None
+    client_name = client.user.name
+
+    # Init new CommandHandler class
+    commandHandler = CommandHandler(client_name)
+
     for guild in client.guilds:
         for channel in guild.channels:
             if type(channel) == discord.TextChannel:
@@ -28,7 +38,7 @@ async def on_ready():
 # Event which is called on every message sent in a text channel
 @client.event
 async def on_message(message: discord.message):
-    global commandHandler, client_name
+    global commandHandler
 
     sender = message.author
     # Goes through if type == discord.Member
@@ -38,7 +48,7 @@ async def on_message(message: discord.message):
         await commandHandler.countUp(message.guild)
 
         # Goes through if message wasnt sent by a bot
-        if not client_name != str(message.author.name):
+        if not client_name == str(message.author.name):
             # Handles incoming commands
             await commandHandler.handle(message)
 

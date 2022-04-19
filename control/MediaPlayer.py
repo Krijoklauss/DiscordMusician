@@ -51,7 +51,10 @@ class MediaPlayer:
         for i, command in enumerate(commands):
             helpMessage += self.prefix + command + " | " + usages[i] + "\n"
 
-        embo = discord.Embed(title="Help commands")
+        _embed = discord.Embed(title="Testing title", description="Some description", color=discord.Color.from_rgb(255, 0, 255))
+        _embed.add_field(name="Field1", value="not inline", inline=False)
+        _embed.add_field(name="Field2", value="inline", inline=True)
+        await self.send_embed(_embed)
 
         return True, None
 

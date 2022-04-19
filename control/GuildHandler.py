@@ -6,14 +6,12 @@ from control.MediaPlayer import MediaPlayer
 class GuildHandler:
     def __init__(self, client_name):
         self.client_name = client_name
-
         self.guilds = {}
         self.loadGuilds()
         pass
     
     # Loads the saved guilds if a Bot restart is required or update is being pushed
     def loadGuilds(self):
-        print("Loading available guilds!")
         try:
             _j = {}
             with open("data/guilds.json", "r", encoding="UTF-8") as infile:
@@ -61,8 +59,6 @@ class GuildHandler:
     
     # Creates a new Guild 
     def create_bot(self, identity, time=False):
-        print("Id: "+str(identity))
-
         player = MediaPlayer(identity, self.client_name)
         self.guilds[str(identity)] = {
             "player": player,
