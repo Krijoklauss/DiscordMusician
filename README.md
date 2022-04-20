@@ -22,6 +22,7 @@
       -  clear
       -  cleaner
       -  help
+      -  lang
 
 -  Kommende Updates ( High priority )
    -  Als nächstes werden erst einmal Grundlegende Funktionen angepasst und optimiert,

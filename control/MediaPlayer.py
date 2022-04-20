@@ -67,10 +67,24 @@ class MediaPlayer:
         global possible_prefixes
 
         if possible_prefixes.__contains__(newPrefix):
+            oldPrefix = self.prefix
             self.prefix = newPrefix
+
+            embedResponseJson = self.language['commands']['prefix']["works"]
+            title = embedResponseJson['title']
+            desc = embedResponseJson['description']
+            color = embedResponseJson['color']
+
+            replacements = [newPrefix, oldPrefix]
+            _embed = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+            for i, field in enumerate(embedResponseJson['fields']):
+                replacement = replacements[i]
+                _embed.add_field(name=field['name'], value=field['value'] % (replacement), inline=field['inline'])
+
+            await self.send_embed(_embed)
             return True, None
         else:
-            errorMessage = "Der Prefix befinden sich nicht in unserem Prefix pool!\nUnser Prefix pool sieht wie folgt aus:\n"
+            errorMessage = "Der Prefix befindet sich nicht in unserem Prefix pool!\nUnser Prefix pool sieht wie folgt aus:\n"
             for i, pref in enumerate(possible_prefixes):
                 errorMessage += str(i+1) + "." + pref + ",\n"
             return False, errorMessage

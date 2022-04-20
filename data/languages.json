@@ -3,44 +3,145 @@
         "en": {
             "commands": {
                 "prefix": {
-                    "works": "Your new prefix is now %s",
+                    "works": {
+                        "title": "",
+                        "description": "",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {"name": "New Prefix", "value": "Your new prefix is now %s", "inline": false},
+                            {"name": "Old Prefix", "value": "Your old prefix was %s", "inline": false}
+                        ]
+                    },
                     "fails": []
                 },
-                "bind": "The bot is now bound to %s",
-                "nick": "Changed my name to %s",
-                "playing": "%s is now playing!",
-                "added_to_queue": "%s has been added to the queue!",
-                "stop": "The currently playing song %s has been stoped and the queue has been cleared!",
-                "skip": "Skipping %s!",
-                "pause": "The currently playing song %s has been paused!",
-                "resume": "The paused song %s has been resumed!",
-                "seek": "Skipping to position %s!",
-                "np": "Currently playing %s.",
-                "queue": "This is the current queue!",
-                "clear": "The current queue has been cleared!",
-                "cleaner": "Tried to delete as many messages as possible!",
-                "help": "These are the available commands for this bot",
-                "lang": "The current language %s has been changed to %s"
+                "bind": {
+                    "works": "The bot is now bound to %s",
+                    "fails": []
+                },
+                "nick": {
+                    "works": "Changed my name to %s",
+                    "fails": []
+                },
+                "playing": {
+                    "works": "%s is now playing!",
+                    "fails": []
+                },
+                "added_to_queue": {
+                    "works": "%s has been added to the queue!",
+                    "fails": []
+                },
+                "stop": {
+                    "works": "The currently playing song %s has been stoped and the queue has been cleared!",
+                    "fails": []
+                },
+                "skip": {
+                    "works": "Skipping %s!",
+                    "fails": []
+                },
+                "pause": {
+                    "works": "The currently playing song %s has been paused!",
+                    "fails": []
+                },
+                "resume": {
+                    "works": "The paused song %s has been resumed!",
+                    "fails": []
+                },
+                "seek": {
+                    "works": "Skipping to position %s!",
+                    "fails": []
+                },
+                "np": {
+                    "works": "Currently playing %s.",
+                    "fails": []
+                },
+                "queue": {
+                    "works": "This is the current queue!",
+                    "fails": []
+                },
+                "clear": {
+                    "works": "The current queue has been cleared!",
+                    "fails": []
+                },
+                "cleaner": {
+                    "works": "Tried to delete as many messages as possible!",
+                    "fails": []
+                },
+                "help": {
+                    "works": "These are the available commands for this bot",
+                    "fails": []
+                },
+                "lang": {
+                    "works": "The current language %s has been changed to %s",
+                    "fails": []
+                }
             }
         },
         "de": {
             "commands": {
-                "prefix": "Der prefix lautet nun %s",
-                "bind": "Der hört nur noch auf den Channl %s!",
-                "nick": "Mein Name lautet nun %s",
-                "playing": "Der Song %s wird nun abgespielt!",
-                "added_to_queue": "Der Song %s wurde der aktuellen Liste hinzugefügt!",
-                "stop": "Der Song %s wurde gestoppt und die Song-Liste geleert!",
-                "skip": "Der Song %s wurde übersprungen!",
-                "pause": "Der Song %s wurde pausiert!",
-                "resume": "Der pausierte Song %s wird fortgesetzt!",
-                "seek": "Der Song wird zu Sekunde %s gespult!",
-                "np": "Aktuell wird %s abgespielt!",
-                "queue": "Dies ist die aktuelle Song-Liste",
-                "clear": "Die aktuelle Song-Liste wird geleert!",
-                "cleaner": "Es wurden so viele Nachrichten wie möglich entfernt!",
-                "help": "Dies sind die verfügbaren Bot-Commands!",
-                "lang": "Die Sprache wurde von %s in %s geändert!"
+                "prefix": {
+                    "works": "Der prefix lautet nun %s",
+                    "fails": []
+                },
+                "bind": {
+                    "works": "Der hört nur noch auf den Channl %s!",
+                    "fails": []
+                },
+                "nick": {
+                    "works": "Mein Name lautet nun %s",
+                    "fails": []
+                },
+                "playing": {
+                    "works": "Der Song %s wird nun abgespielt!",
+                    "fails": []
+                },
+                "added_to_queue": {
+                    "works": "Der Song %s wurde der aktuellen Liste hinzugefügt!",
+                    "fails": []
+                },
+                "stop": {
+                    "works": "Der Song %s wurde gestoppt und die Song-Liste geleert!",
+                    "fails": []
+                },
+                "skip": {
+                    "works": "Der Song %s wurde übersprungen!",
+                    "fails": []
+                },
+                "pause": {
+                    "works": "Der Song %s wurde pausiert!",
+                    "fails": []
+                },
+                "resume": {
+                    "works": "Der pausierte Song %s wird fortgesetzt!",
+                    "fails": []
+                },
+                "seek": {
+                    "works": "Der Song wird zu Sekunde %s gespult!",
+                    "fails": []
+                },
+                "np": {
+                    "works": "Aktuell wird %s abgespielt!",
+                    "fails": []
+                },
+                "queue": {
+                    "works": "Dies ist die aktuelle Song-Liste",
+                    "fails": []
+                },
+                "clear": {
+                    "works": "Die aktuelle Song-Liste wird geleert!",
+                    "fails": []
+                },
+                "cleaner": {
+                    "works": "Es wurden so viele Nachrichten wie möglich entfernt!",
+                    "fails": []
+                },
+                "help": {
+                    "works": "Dies sind die verfügbaren Bot-Commands!",
+                    "fails": []
+                },
+                "lang": {
+                    "works": "Die Sprache wurde von %s in %s geändert!",
+                    "fails": []
+                }
             }
         }
     }
