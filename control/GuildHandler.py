@@ -27,8 +27,6 @@ class GuildHandler:
                 }
 
         except FileNotFoundError:
-            print("This file does not exist!")
-            print("Creating new File!")
             open("data/guilds.json", "w+", encoding="UTF-8").close()
 
     # Checks if guild id is already available

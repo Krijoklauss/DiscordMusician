@@ -55,8 +55,7 @@ class YoutubeUtils:
 
         # Fetch audio streamable url
         player_link = self.url_fetcher.get(video, 251)
-        print("Player Link: "+str(player_link))
-
+        
         return Song(song_link, player_link, videoInfo['title'], int(videoInfo['duration']['secondsText']), videoInfo['viewCount']['text'])
 
     def getPlaylistSongs(self, playlist_link):
