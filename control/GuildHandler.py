@@ -83,8 +83,6 @@ class GuildHandler:
                 "lang": self.guilds[str(id)]["player"].country_code
             }
 
-        print("Objects: "+str(obj))
-
         with open("data/guilds.json", "w+", encoding="UTF-8") as outfile:
             json.dump(obj, outfile, indent=4)
             outfile.flush()
