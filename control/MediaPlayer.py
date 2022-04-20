@@ -2,16 +2,21 @@ import discord
 import asyncio
 from control.model.utility.YoutubeUtils import YoutubeUtils
 from control.model.utility.Song import Song
+from control.LanguageHandler import LanguageHandler
 
-
+languageHandler = LanguageHandler()
 possible_prefixes = ["!", "?", "-", ",", ".", "*", "'", "#", "=", "&", "$", "%", "§", "卐"]
 
 
 class MediaPlayer:
-    def __init__(self, identity, client_name, pref="!", bounded=False, chan=""):
+    def __init__(self, identity, client_name, pref="!", bounded=False, chan="", lang="en"):
+        global languageHandler
+
         self.id = identity
         self.guild = None
         self.client_name = client_name
+        self.country_code = lang
+        self.language = languageHandler.get_language("en")
         self.prefix = pref
         self.msg_counter = 0
         self.is_bound = bounded
@@ -292,5 +297,13 @@ class MediaPlayer:
                 await channel.purge(limit=100)
                 return False, "Deleted as many messages as possible!"
 
+    async def change_language(self, code):
+        global languageHandler
+        if languageHandler.code_exists(code):
+            self.language = languageHandler.get_language(code)
+            self.country_code = code
+            return False, "Changed language to "+str(code)
+        else:
+            return False, "Country code does not exist!"
 
 

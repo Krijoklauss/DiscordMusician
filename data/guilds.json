@@ -2,11 +2,13 @@
     "274236256269893634": {
         "prefix": "!",
         "channel_bound": true,
-        "bound_channel": "musik"
+        "bound_channel": "musik",
+        "lang": "en"
     },
     "274951121372708877": {
         "prefix": "!",
         "channel_bound": true,
-        "bound_channel": "musik"
+        "bound_channel": "musik",
+        "lang": "en"
     }
 }

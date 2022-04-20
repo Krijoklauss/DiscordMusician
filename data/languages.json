@@ -1,0 +1,47 @@
+{
+    "languages": {
+        "en": {
+            "commands": {
+                "prefix": {
+                    "works": "Your new prefix is now %s",
+                    "fails": []
+                },
+                "bind": "The bot is now bound to %s",
+                "nick": "Changed my name to %s",
+                "playing": "%s is now playing!",
+                "added_to_queue": "%s has been added to the queue!",
+                "stop": "The currently playing song %s has been stoped and the queue has been cleared!",
+                "skip": "Skipping %s!",
+                "pause": "The currently playing song %s has been paused!",
+                "resume": "The paused song %s has been resumed!",
+                "seek": "Skipping to position %s!",
+                "np": "Currently playing %s.",
+                "queue": "This is the current queue!",
+                "clear": "The current queue has been cleared!",
+                "cleaner": "Tried to delete as many messages as possible!",
+                "help": "These are the available commands for this bot",
+                "lang": "The current language %s has been changed to %s"
+            }
+        },
+        "de": {
+            "commands": {
+                "prefix": "Der prefix lautet nun %s",
+                "bind": "Der hört nur noch auf den Channl %s!",
+                "nick": "Mein Name lautet nun %s",
+                "playing": "Der Song %s wird nun abgespielt!",
+                "added_to_queue": "Der Song %s wurde der aktuellen Liste hinzugefügt!",
+                "stop": "Der Song %s wurde gestoppt und die Song-Liste geleert!",
+                "skip": "Der Song %s wurde übersprungen!",
+                "pause": "Der Song %s wurde pausiert!",
+                "resume": "Der pausierte Song %s wird fortgesetzt!",
+                "seek": "Der Song wird zu Sekunde %s gespult!",
+                "np": "Aktuell wird %s abgespielt!",
+                "queue": "Dies ist die aktuelle Song-Liste",
+                "clear": "Die aktuelle Song-Liste wird geleert!",
+                "cleaner": "Es wurden so viele Nachrichten wie möglich entfernt!",
+                "help": "Dies sind die verfügbaren Bot-Commands!",
+                "lang": "Die Sprache wurde von %s in %s geändert!"
+            }
+        }
+    }
+}

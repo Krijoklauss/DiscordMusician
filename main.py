@@ -62,6 +62,7 @@ def __main__():
     except (KeyboardInterrupt, RuntimeError):
         print("Bot stopped!")
 
+    print("Saving current guild settings!")
     commandHandler.guildHandler.saveGuilds()
 
 

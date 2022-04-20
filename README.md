@@ -29,6 +29,8 @@
       Aktuell sind das nur einfach Messages die abgeschickt werden, welche in Zukunft
       durch "EmbedMessages" ersetzt werden
 
+   - Die StandardSprache wird ab kommenden updates Englisch sein und kann mit dem command !lang *LÄNDERCODE* geändert werden
+
 -  Requested Features ( Low priority )
    -  Aktuell arbeite ich an schnell implementierten playlists sowohl von YouTube als auch Spotify
 

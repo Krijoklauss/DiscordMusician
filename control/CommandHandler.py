@@ -26,6 +26,9 @@ class CommandHandler:
         musicBot = self.guildHandler.get_MusicBot(guild.id)
         musicBot.guild = guild
 
+        # Sets the current language of the Bot to respond in the correct lang
+        language = musicBot.language
+
         # The first thing we check is the last command that has been executed!
         difference = 999999
         lastCommand = self.guildHandler.get_Last_Command_Time(guild.id)
@@ -68,6 +71,12 @@ class CommandHandler:
             await msg.channel.send("Sie dürfen nur maximal ein einziges Argument angeben!")
             return
 
+        # Check if command needs an argument!
+        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang"]
+        if len(args) < 1 and needsArguments.__contains__(command):
+            await msg.channel.send("Dieser command benötigt mindestens ein Argument!")
+            return
+
         if not musicBot.is_bound and command != "bind":
             await msg.channel.send("Sie müssen den Bot zuerst mit dem Befehl '!bind' einem Channel zuordnen!")
             return
@@ -104,6 +113,8 @@ class CommandHandler:
             status, responseMessage = await musicBot.clear_messages()
         elif command == "help":
             status, responseMessage = await musicBot.show_help_message()
+        elif command == "lang":
+            status, responseMessage = await musicBot.change_language(args[0])
         else:
             await msg.channel.send("Der Command den Sie eingegeben haben existiert nich! ("+str(command)+")")
             return
