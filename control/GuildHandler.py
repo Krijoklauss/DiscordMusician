@@ -21,7 +21,7 @@ class GuildHandler:
 
             for id in _j:
                 player = MediaPlayer(id, self.client_name, pref=_j[id]['prefix'], bounded=_j[id]['channel_bound'], chan=_j[id]['bound_channel'], lang=_j[id]["lang"])
-                self.guilds[id] = {
+                self.guilds[str(id)] = {
                     "player": player,
                     "last_command_time": None
                 }
@@ -76,12 +76,14 @@ class GuildHandler:
 
         obj = {}
         for id in self.guilds:
-            obj[id] = {
+            obj[str(id)] = {
                 "prefix": self.guilds[str(id)]["player"].prefix,
                 "channel_bound": self.guilds[str(id)]["player"].is_bound,
                 "bound_channel": self.guilds[str(id)]["player"].bound_channel,
-                "lang": self.guild[str(id)]["player"].country_code
+                "lang": self.guilds[str(id)]["player"].country_code
             }
+
+        print("Objects: "+str(obj))
 
         with open("data/guilds.json", "w+", encoding="UTF-8") as outfile:
             json.dump(obj, outfile, indent=4)
