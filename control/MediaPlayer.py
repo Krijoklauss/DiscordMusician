@@ -1,3 +1,4 @@
+import enum
 import discord
 import asyncio
 from control.model.utility.YoutubeUtils import YoutubeUtils
@@ -50,8 +51,8 @@ class MediaPlayer:
     async def show_help_message(self):
         helpMessage = "Dies ist eine Liste aller verfügbaren commands und ihrer Anwendung!\n"
 
-        commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help"]
-        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", "None", "None", "None", "None", "*TIME_TO_SKIP*", "None", "None", "None", "None", "None"]
+        commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help", "lang"]
+        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", "None", "None", "None", "None", "*TIME_TO_SKIP*", "None", "None", "None", "None", "None", "None"]
 
         for i, command in enumerate(commands):
             helpMessage += self.prefix + command + " | " + usages[i] + "\n"
@@ -66,11 +67,13 @@ class MediaPlayer:
     async def set_prefix(self, newPrefix):
         global possible_prefixes
 
+        myLanguage = embedResponseJson = self.language['commands']['prefix']
+
         if possible_prefixes.__contains__(newPrefix):
             oldPrefix = self.prefix
             self.prefix = newPrefix
 
-            embedResponseJson = self.language['commands']['prefix']["works"]
+            embedResponseJson = myLanguage["works"]
             title = embedResponseJson['title']
             desc = embedResponseJson['description']
             color = embedResponseJson['color']
@@ -84,19 +87,57 @@ class MediaPlayer:
             await self.send_embed(_embed)
             return True, None
         else:
-            errorMessage = "Der Prefix befindet sich nicht in unserem Prefix pool!\nUnser Prefix pool sieht wie folgt aus:\n"
+            embedResponseJson = myLanguage["fails"][0]
+            title = embedResponseJson['title']
+            desc = embedResponseJson['description']
+            color = embedResponseJson['color']
+
+            embedResponse = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+
+            prefixPool = ""
             for i, pref in enumerate(possible_prefixes):
-                errorMessage += str(i+1) + "." + pref + ",\n"
-            return False, errorMessage
+                prefixPool += str(i+1) + "." + pref + ",\n"
+
+            replacements = [prefixPool]
+            for i, field in enumerate(embedResponseJson['fields']):
+                replacement = replacements[i]
+                embedResponse.add_field(name=field['name'], value=field['value'] % (replacement), inline=field['inline'])
+
+            return False, embedResponse
 
     async def set_bind(self, guild, newChannel):
+
+        myLanguage = self.language['commands']['bind']
         for channel in guild.channels:
             if type(channel) == discord.TextChannel:
                 if channel.name == newChannel:
+
                     self.is_bound = True
                     self.bound_channel = channel.name
+
+                    embedResponseJson = myLanguage["works"]
+                    title = embedResponseJson['title']
+                    desc = embedResponseJson['description']
+                    color = embedResponseJson['color']
+
+                    replacements = [newChannel, self.bound_channel]
+                    embedResponse = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+                    for i, field in enumerate(embedResponseJson['fields']):
+                        embedResponse.add_field(name=field['name'], value=field['value'] % (replacements[i]), inline=field['inline'])
+
+                    await self.send_embed(embedResponse)
                     return True, None
-        return False, "Es tut mir leid aber dieser TEXTKANAL existiert leider nicht auf diesem Server!"
+    
+        embedResponseJson = myLanguage["fails"][0]
+        title = embedResponseJson['title']
+        desc = embedResponseJson['description']
+        color = embedResponseJson['color']
+
+        replacements = [newChannel]
+        embedResponse = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+        for i, field in enumerate(embedResponseJson['fields']):
+            embedResponse.add_field(name=field['name'], value=field['value'] % (replacements[i]), inline=field['inline'])
+        return False, embedResponse
 
     async def set_nick(self, guild, newNickname):
         nickname = ""

@@ -1,8 +1,8 @@
 {
     "274236256269893634": {
-        "prefix": "?",
+        "prefix": "!",
         "channel_bound": true,
-        "bound_channel": "musik",
+        "bound_channel": "streaming",
         "lang": "de"
     },
     "274951121372708877": {

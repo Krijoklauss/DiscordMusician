@@ -30,7 +30,13 @@
       Aktuell sind das nur einfach Messages die abgeschickt werden, welche in Zukunft
       durch "EmbedMessages" ersetzt werden
 
-   - Die StandardSprache wird ab kommenden updates Englisch sein und kann mit dem command !lang *LÄNDERCODE* geändert werden
+   -  Die StandardSprache wird ab kommenden updates Englisch sein und kann mit dem command !lang *LÄNDERCODE* geändert werden
+
+   -  Außerdem steht auf dem Plan die playerlink generation zu optimieren und den broken pipe error von ffmpeg zu vermeiden.
+      Edit: Es kann passieren, dass zu alte links welche zum abspielen generiert werden abgelaufen sind und somit nicht mehr spielbar sind! Das crashed den Bot und führt zu einem dauerhaften absturz
+
+      Dies wird nach den Ausgaben gefixt da der Bot momentan noch läuft und der Fehler nur selten vorkommt bei sehr langen queue times
+   
 
 -  Requested Features ( Low priority )
    -  Aktuell arbeite ich an schnell implementierten playlists sowohl von YouTube als auch Spotify

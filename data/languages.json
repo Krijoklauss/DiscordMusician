@@ -4,19 +4,69 @@
             "commands": {
                 "prefix": {
                     "works": {
-                        "title": "",
-                        "description": "",
+                        "title": "Prefix change",
+                        "description": "Current prefix has been changed",
                         "color": [255, 0, 255],
                         "fields": [
-                            {"name": "New Prefix", "value": "Your new prefix is now %s", "inline": false},
-                            {"name": "Old Prefix", "value": "Your old prefix was %s", "inline": false}
+                            {
+                                "name": "New Prefix", 
+                                "value": "Your new prefix is now %s", 
+                                "inline": false
+                            },
+                            {
+                                "name": "Old Prefix", 
+                                "value": "Your old prefix was %s", 
+                                "inline": false
+                            }
                         ]
                     },
-                    "fails": []
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Failed to change the prefix",
+                            "color": [255, 0, 255],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "Our predefined prefix pool does not contain your new prefix.\n This is our Prefix pool:\n%s",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "bind": {
-                    "works": "The bot is now bound to %s",
-                    "fails": []
+                    "works": {
+                        "title": "Channel change",
+                        "description": "Binded channel has been changed!",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "New channel", 
+                                "value": "Your new channel is %s", 
+                                "inline": false
+                            },
+                            {
+                                "name": "Old channel", 
+                                "value": "Your old channel was %s", 
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Failed to change the channel",
+                            "color": [255, 0, 255],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "The TEXTCHANNEL %s does not exist on this server!",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "nick": {
                     "works": "Changed my name to %s",

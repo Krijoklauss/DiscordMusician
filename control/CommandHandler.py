@@ -121,5 +121,8 @@ class CommandHandler:
 
         # Sends error message on False status!
         if not status:
-            await msg.channel.send(responseMessage)
+            if type(responseMessage) == discord.Embed:
+                await msg.channel.send(embed=responseMessage)
+            else:
+                await msg.channel.send(responseMessage)
 

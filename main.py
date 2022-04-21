@@ -9,7 +9,7 @@ inten = discord.Intents.default()
 inten.members = True
 
 # Declaring Bot token and initiating new discord.Client()
-token = environ.get("MUSIC_BOT")
+token = environ.get("MUSIC_BOT_SNAPSHOT")
 client = discord.Client(intents=inten)
 
 commandHandler = None
@@ -60,7 +60,7 @@ def __main__():
     try:
         client.run(token)
     except (KeyboardInterrupt, RuntimeError):
-        print("Bot stopped!")
+        pass
 
     print("Saving current guild settings!")
     commandHandler.guildHandler.saveGuilds()
