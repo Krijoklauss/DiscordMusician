@@ -39,19 +39,18 @@ class YoutubeUtils:
                     break
 
             if myVideo == None:
-                return False, "Das Video konnte nicht gefunden werden!"
+                return (1, [query])
             
             song_link = myVideo['link']
             video = Video.get(song_link)
             videoInfo = Video.getInfo(song_link)
 
-
         # Last Process is always the same
-        if int(videoInfo['duration']['secondsText']) > (3600 * 1.5):
-            return False, "Der angegebene Song ist zu lang!"
-
         if video is None or videoInfo is None:
-            return False, "Es konnte kein vernünftiges Audio-Format gefunden werden!"
+            return (3, [])
+
+        if int(videoInfo['duration']['secondsText']) > (3600 * 1.5):
+            return (2, [videoInfo['title']])
 
         # Fetch audio streamable url
         player_link = self.url_fetcher.get(video, 251)

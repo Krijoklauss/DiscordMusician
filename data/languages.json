@@ -24,7 +24,7 @@
                         {
                             "title": "Error",
                             "description": "Failed to change the prefix",
-                            "color": [255, 0, 255],
+                            "color": [255, 0, 0],
                             "fields": [
                                 {
                                     "name": "Response message", 
@@ -57,7 +57,7 @@
                         {
                             "title": "Error",
                             "description": "Failed to change the channel",
-                            "color": [255, 0, 255],
+                            "color": [255, 0, 0],
                             "fields": [
                                 {
                                     "name": "Response message", 
@@ -69,51 +69,351 @@
                     ]
                 },
                 "nick": {
-                    "works": "Changed my name to %s",
-                    "fails": []
-                },
-                "playing": {
-                    "works": "%s is now playing!",
-                    "fails": []
+                    "works": {
+                        "title": "Name changed!",
+                        "description": "My nickname has been changed!",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "New Nickname", 
+                                "value": "My new nickname is %s", 
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Failed to change the nickname",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "Couldnt find myself wtf ?!",
+                                    "inline": false
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Error",
+                            "description": "Failed to change the nickname",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "Your new nickname is too long!",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "added_to_queue": {
-                    "works": "%s has been added to the queue!",
-                    "fails": []
+                    "works": {
+                        "title": "Added song",
+                        "description": "A new song has been added to the queue!",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "New Song", 
+                                "value": "The song %s has been added to the queue!", 
+                                "inline": false
+                            },
+                            {
+                                "name": "Views",
+                                "value": "The video has been watched %s times!",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Failed to join a voicechannel!",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "You're not connected to a voicechannel!", 
+                                    "inline": false
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Error",
+                            "description": "Video not found!",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "The Video %s wasnt found, sorry!", 
+                                    "inline": false
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Error",
+                            "description": "Failed to play song",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "The song %s is too long!", 
+                                    "inline": false
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Error",
+                            "description": "Failed to init. link!",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "null", 
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "playing": {
+                    "works": {
+                        "title": "Playing song",
+                        "description": "Playing the next song from the current queue",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Upcoming song", 
+                                "value": "Now playing %s.", 
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                    ]
                 },
                 "stop": {
-                    "works": "The currently playing song %s has been stoped and the queue has been cleared!",
-                    "fails": []
+                    "works": {
+                        "title": "Stopping song",
+                        "description": "Stops the currently playing song",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Song is being stopped", 
+                                "value": "The song that is being stopped is %s", 
+                                "inline": false
+                            },
+                            {
+                                "name": "Emptying the queue!",
+                                "value": "The queue has been emptied!",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Failed to stop the song!",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message", 
+                                    "value": "There is no song being played!", 
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "skip": {
-                    "works": "Skipping %s!",
-                    "fails": []
+                    "works": {
+                        "title": "Skipping",
+                        "description": "Skipping current song",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Skipping the currently playing song!",
+                                "value": "The song that is being skipped is %s.",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Couldnt skip current song",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message",
+                                    "value": "There is no song being played which could be skipped!",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "pause": {
-                    "works": "The currently playing song %s has been paused!",
-                    "fails": []
+                    "works": {
+                        "title": "Pausing",
+                        "description": "Current song is paused",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Pausing the currently playing song!",
+                                "value": "The currently playing song %s has been paused at position %s!",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Couldnt pause current song!",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message",
+                                    "value": "There is no song running!",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "resume": {
-                    "works": "The paused song %s has been resumed!",
-                    "fails": []
+                    "works": {
+                        "title": "Resuming",
+                        "description": "Resumes the paused song",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Resuming the currently paused song!",
+                                "value": "The song %s has been resumed at position %s!",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Couldnt resume",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message",
+                                    "value": "Couldnt resume any song, because no song has been paused!",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "seek": {
                     "works": "Skipping to position %s!",
                     "fails": []
                 },
                 "np": {
-                    "works": "Currently playing %s.",
-                    "fails": []
+                    "works": {
+                        "title": "Current Song",
+                        "description": "Showing the current song",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Current song",
+                                "value": "%s",
+                                "inline": false
+                            },
+                            {
+                                "name": "Views",
+                                "value": "%s",
+                                "inline": false
+                            },
+                            {
+                                "name": "Progress",
+                                "value": "%s",
+                                "inline": false
+                            },
+                            {
+                                "name": "Progress in percentage",
+                                "value": "%s",
+                                "inline": false
+                            },
+                            {
+                                "name": "Progress in seconds",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "No song found",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message",
+                                    "value": "There is no song being played right now!",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 "queue": {
-                    "works": "This is the current queue!",
-                    "fails": []
+                    "works": {
+                        "title": "Showing queue",
+                        "description": "Shows the current queue",
+                        "color": ["255, 0, 255"],
+                        "fields": [
+                            {
+                                "name": "Current queue",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "Queue is None!",
+                            "color": [255, 0, 0],
+                            "fields": {
+                                "name": "Response message",
+                                "value": "The current queue is empty!",
+                                "inline": false
+                            }
+                        }
+                    ]
                 },
                 "clear": {
-                    "works": "The current queue has been cleared!",
+                    "works": {
+                        "title": "Emptying queue",
+                        "description": "Clears the current queue!",
+                        "color": [255, 0, 255],
+                        "fields": {
+                            "name": "Clearing...",
+                            "value": "%s songs have been removed from the queue!",
+                            "inline": false
+                        }
+                    },
                     "fails": []
                 },
                 "cleaner": {
-                    "works": "Tried to delete as many messages as possible!",
+                    "works": {
+                        "title": "Clearing channel",
+                        "description": "Clears as many messages as possible",
+                        "color": [255, 0, 128],
+                        "fields": [
+                            {
+                                "name": "Clearing 100 messages...",
+                                "value": "100 messages have been cleared!",
+                                "inline": false
+                            }
+                        ]
+                    },
                     "fails": []
                 },
                 "help": {
@@ -121,76 +421,32 @@
                     "fails": []
                 },
                 "lang": {
-                    "works": "The current language %s has been changed to %s",
-                    "fails": []
-                }
-            }
-        },
-        "de": {
-            "commands": {
-                "prefix": {
-                    "works": "Der prefix lautet nun %s",
-                    "fails": []
-                },
-                "bind": {
-                    "works": "Der hört nur noch auf den Channl %s!",
-                    "fails": []
-                },
-                "nick": {
-                    "works": "Mein Name lautet nun %s",
-                    "fails": []
-                },
-                "playing": {
-                    "works": "Der Song %s wird nun abgespielt!",
-                    "fails": []
-                },
-                "added_to_queue": {
-                    "works": "Der Song %s wurde der aktuellen Liste hinzugefügt!",
-                    "fails": []
-                },
-                "stop": {
-                    "works": "Der Song %s wurde gestoppt und die Song-Liste geleert!",
-                    "fails": []
-                },
-                "skip": {
-                    "works": "Der Song %s wurde übersprungen!",
-                    "fails": []
-                },
-                "pause": {
-                    "works": "Der Song %s wurde pausiert!",
-                    "fails": []
-                },
-                "resume": {
-                    "works": "Der pausierte Song %s wird fortgesetzt!",
-                    "fails": []
-                },
-                "seek": {
-                    "works": "Der Song wird zu Sekunde %s gespult!",
-                    "fails": []
-                },
-                "np": {
-                    "works": "Aktuell wird %s abgespielt!",
-                    "fails": []
-                },
-                "queue": {
-                    "works": "Dies ist die aktuelle Song-Liste",
-                    "fails": []
-                },
-                "clear": {
-                    "works": "Die aktuelle Song-Liste wird geleert!",
-                    "fails": []
-                },
-                "cleaner": {
-                    "works": "Es wurden so viele Nachrichten wie möglich entfernt!",
-                    "fails": []
-                },
-                "help": {
-                    "works": "Dies sind die verfügbaren Bot-Commands!",
-                    "fails": []
-                },
-                "lang": {
-                    "works": "Die Sprache wurde von %s in %s geändert!",
-                    "fails": []
+                    "works": {
+                        "title": "Changing language",
+                        "description": "Changes the current bot language",
+                        "color": [255, 0, 255],
+                        "fields": [
+                            {
+                                "name": "Language change",
+                                "value": "The language has been changed from %s to %s.",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": [
+                        {
+                            "title": "Error",
+                            "description": "NoLangFoundError",
+                            "color": [255, 0, 0],
+                            "fields": [
+                                {
+                                    "name": "Response message",
+                                    "value": "This language does not exist!\nIf you want to add a specific language make a language request at this github: https://github.com/Krijoklauss/DiscordMusician",
+                                    "inline": false
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         }

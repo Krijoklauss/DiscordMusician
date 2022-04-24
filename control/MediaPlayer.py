@@ -1,4 +1,3 @@
-import enum
 import discord
 import asyncio
 from control.model.utility.YoutubeUtils import YoutubeUtils
@@ -43,6 +42,20 @@ class MediaPlayer:
                     await channel.send(msg, file=image)
                     return
 
+    async def create_embed_message(self, embedResponse, replacements):
+        title = embedResponse['title']
+        description = embedResponse['description']
+        color = embedResponse['color']
+
+        msg = discord.Embed(title=title, description=description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+        for i, field in enumerate(embedResponse['fields']):
+            try:
+                replacement = replacements[i]
+                msg.add_field(name=field['name'], value=field['value'] % replacement, inline=field['inline'])
+            except (IndexError, KeyError):
+                msg.add_field(name=field['name'], value=field['value'], inline=field['inline'])
+        return msg
+
     async def send_embed(self, e: discord.Embed):
         for channel in self.guild.channels:
                 if channel.name == self.bound_channel and type(channel) == discord.TextChannel:
@@ -73,37 +86,16 @@ class MediaPlayer:
             oldPrefix = self.prefix
             self.prefix = newPrefix
 
-            embedResponseJson = myLanguage["works"]
-            title = embedResponseJson['title']
-            desc = embedResponseJson['description']
-            color = embedResponseJson['color']
-
-            replacements = [newPrefix, oldPrefix]
-            _embed = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
-            for i, field in enumerate(embedResponseJson['fields']):
-                replacement = replacements[i]
-                _embed.add_field(name=field['name'], value=field['value'] % (replacement), inline=field['inline'])
-
-            await self.send_embed(_embed)
+            await self.send_embed(await self.create_embed_message(myLanguage["works"], [newPrefix, oldPrefix]))
             return True, None
         else:
-            embedResponseJson = myLanguage["fails"][0]
-            title = embedResponseJson['title']
-            desc = embedResponseJson['description']
-            color = embedResponseJson['color']
-
-            embedResponse = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
-
             prefixPool = ""
             for i, pref in enumerate(possible_prefixes):
                 prefixPool += str(i+1) + "." + pref + ",\n"
 
             replacements = [prefixPool]
-            for i, field in enumerate(embedResponseJson['fields']):
-                replacement = replacements[i]
-                embedResponse.add_field(name=field['name'], value=field['value'] % (replacement), inline=field['inline'])
-
-            return False, embedResponse
+            embedResponseJson = myLanguage["fails"][0]
+            return False, await self.create_embed_message(embedResponseJson, replacements)
 
     async def set_bind(self, guild, newChannel):
 
@@ -115,29 +107,10 @@ class MediaPlayer:
                     self.is_bound = True
                     self.bound_channel = channel.name
 
-                    embedResponseJson = myLanguage["works"]
-                    title = embedResponseJson['title']
-                    desc = embedResponseJson['description']
-                    color = embedResponseJson['color']
-
-                    replacements = [newChannel, self.bound_channel]
-                    embedResponse = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
-                    for i, field in enumerate(embedResponseJson['fields']):
-                        embedResponse.add_field(name=field['name'], value=field['value'] % (replacements[i]), inline=field['inline'])
-
-                    await self.send_embed(embedResponse)
+                    await self.send_embed(await self.create_embed_message(myLanguage["works"], [newChannel, self.bound_channel]))
                     return True, None
     
-        embedResponseJson = myLanguage["fails"][0]
-        title = embedResponseJson['title']
-        desc = embedResponseJson['description']
-        color = embedResponseJson['color']
-
-        replacements = [newChannel]
-        embedResponse = discord.Embed(title=title, description=desc, color=discord.Color.from_rgb(color[0], color[1], color[2]))
-        for i, field in enumerate(embedResponseJson['fields']):
-            embedResponse.add_field(name=field['name'], value=field['value'] % (replacements[i]), inline=field['inline'])
-        return False, embedResponse
+        return False, await self.create_embed_message(myLanguage["fails"][0], [newChannel])
 
     async def set_nick(self, guild, newNickname):
         nickname = ""
@@ -149,18 +122,25 @@ class MediaPlayer:
             if member.name == self.client_name:
                 myMember = member
                 break
+        
+        myLanguage = self.language['commands']['nick']
+        if myMember is None:
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
-        if myMember is None or len(nickname) > 20:
-            return False, "Es tut mir leid dieser Name ist zu lang!"
+        if len(nickname) > 35:
+            return False, await self.create_embed_message(myLanguage['fails'][1], [])
 
         await myMember.edit(nick=nickname+" "+str(self.prefix)+"prefix")
-        return False, "Deine Neuer Nickname lautet: "+str(nickname)
+        await self.send_embed(await self.create_embed_message(myLanguage['works'], [nickname]))
+
+        return True, None
 
     async def connect(self, channel : discord.channel):
         return await channel.connect(timeout=60, reconnect=True)
 
     async def play(self, guild: discord.guild, sender: str, args):
 
+        myLanguage = self.language['commands']['added_to_queue']
         voiceChannel = None
         for channel in guild.channels:
             found = False
@@ -174,39 +154,49 @@ class MediaPlayer:
                     break
 
         if voiceChannel is None:
-            return False, "VoiceChannel nicht gefunden!"
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
         
         if self.voice_connection is None or not self.voice_connection.is_connected():
             self.voice_connection = await self.connect(voiceChannel)
 
         if str(args[0]).__contains__("list"):
             return False, "Under maintenance!"
-            newSong = self.youtube.getPlaylistSongs(args[0])
         else:
             newSong = self.youtube.getSong(args)
             self.queue.append(newSong)
 
+        # Returns newSong if it's a tuple object, because that means something in getSong() went wrong!
         if type(newSong) == tuple:
-            return newSong
+            return False, await self.create_embed_message(myLanguage['fails'][newSong[0]], newSong[1])
             
         if self.voice_connection.is_playing() or self.voice_connection.is_paused():
-            responseMessage = "Der Song "+str(newSong.song_title)+" wurde der queue hinzugefügt!"
-            return False, responseMessage
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [newSong.song_title, newSong.viewCount]))
+            return True, None
 
         if not self.in_queue_loop:
             await self.queue_loop()
+
+        # Tells the main program that no error was found and the function worked just fine
         return True, None
         
     async def queue_loop(self):
+        myLanguage = self.language['commands']['playing']
+
         self.in_queue_loop = True
         while len(self.queue) > 0:
 
-            currentSong = self.queue.pop(0)
+            self.current_song = None
+            self.current_progress = 0
 
-            # Sends special message to channel
-            await self.send_user_message("Der Song "+str(currentSong.song_title)+" wird nun abgespielt!")
+
+            currentSong = self.queue.pop(0)
+            if currentSong.audio_source is None:
+                await currentSong.init_audio_source()
 
             self.current_song = currentSong
+
+            # Sends special message to channel
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [currentSong.song_title]))
 
             if self.voice_connection is not None and self.voice_connection.is_playing():
                 self.voice_connection.stop()
@@ -232,30 +222,37 @@ class MediaPlayer:
 
                 self.current_progress += 1
 
-            self.current_song = None
-            self.current_progress = 0
-
         self.in_queue_loop = False
         await self.stop()
         await self.disconnect()
 
     async def skip(self):
+        myLanguage = self.language['commands']['skip']
+        title = self.current_song.song_title
+
         if self.voice_connection is not None and self.voice_connection.is_connected() and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
             self.skipping = True
-            return False, "Aktueller Song übersprungen!"
-        return False, "Es wird kein Song abgespielt!"
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [title]))
+            return True, None
+        return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
     async def pause(self):
+        myLanguage = self.language['commands']['pause']
+
         if self.voice_connection is not None and self.voice_connection.is_playing():
             self.voice_connection.pause()
-            return False, "Aktueller song pausiert!"
-        return False, "Es wird kein Song abgespielt!"
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [(self.current_song.song_title, self.current_progress)]))
+            return True, None
+        return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
     async def resume(self):
+        myLanguage = self.language['commands']['resume']
+
         if self.voice_connection is not None and self.voice_connection.is_paused():
             self.voice_connection.resume()
-            return False, "Pausierter Song wird nun weiterhin abgespielt!"
-        return False, "Es ist kein Song pausiert!"
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [(self.current_song.song_title, self.current_progress)]))
+            return True, None
+        return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
     async def seek(self, time):
         return False, "Under maintenance!"
@@ -287,6 +284,12 @@ class MediaPlayer:
         return False, "Es wird kein Song abgespielt und es ist auch keiner pausiert!"
 
     async def stop(self):
+        myLanguage = self.language['commands']['stop']
+        title = self.current_song.song_title
+
+        self.current_song = None
+        self.current_progress = 0
+
         if self.voice_connection is not None and self.voice_connection.is_playing():
 
             # Empty the current queue
@@ -296,15 +299,15 @@ class MediaPlayer:
             self.voice_connection.stop()
 
             # Sends special message
-            await self.send_user_message("Song gestoppt und queue geleert!")
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [title]))
 
             # Initiate disconnect
             await self.disconnect()
         else:
-            return False, "Es wird kein Song abgespielt!"
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
         return True, None
 
-    async def disconnect(self, delay=60):
+    async def disconnect(self, delay=120):
         if self.disconnecting:
             return
 
@@ -317,7 +320,7 @@ class MediaPlayer:
                 self.disconnecting = False
                 return
 
-            if i % 20 == 0:
+            if i % 30 == 0 and i > 59:
                 await self.send_user_message("Disconnecting in "+str(delay-i)+" seconds!")
             await asyncio.sleep(1)
 
@@ -326,39 +329,62 @@ class MediaPlayer:
             self.disconnecting = False
 
     async def show_current_song(self):
+        myLanguage = self.language['commands']['np']
+
         if self.current_song is not None:
-            await self.send_user_message("Es wird aktuell " +str(self.current_song.song_title) + ", mit "+str(self.current_song.viewCount) + " Aufrufen abgespielt!")
+            
+            cProgress = ""
+            progress = int((self.current_progress / (self.current_song.duration / 100)) / 2)
+            
+            for i in range(50):
+                if i == progress:
+                    cProgress += "O"
+                else:
+                    cProgress += "="
+
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [self.current_song.song_title, self.current_song.viewCount, cProgress, str(int(progress*2))+"%", str(self.current_progress)+"s / "+str(self.current_song.duration)+"s"]))
             return True, None
         else:
-            return False, "Kein Song vorhanden!"
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
     
     async def show_current_queue(self):
+        myLanguage = self.language['commands']['queue']
+
         message = ""
         if len(self.queue) > 0:
             for i, song in enumerate(self.queue):
                 message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
-            await self.send_user_message(message)
+            
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [message]))
             return True, None
         else:
-            return False, "Es ist kein Song in der aktuellen queue!"
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
     async def clear_current_queue(self):
+        myLanguage = self.language['commands']['clear']
         self.queue = []
-        return False, "Die Queue wurde geleert!"
+        return False, self.create_embed_message(myLanguage['works'], [len(self.queue)])
 
     async def clear_messages(self):
+        myLanguage = self.language['commands']['cleaner']
         for channel in self.guild.channels:
             if channel.name == self.bound_channel and type(channel) == discord.TextChannel:
                 await channel.purge(limit=100)
-                return False, "Deleted as many messages as possible!"
+                await self.send_embed(await self.create_embed_message(myLanguage['works'], []))
+                return True, None
+        return True, None
 
     async def change_language(self, code):
         global languageHandler
+        myLanguage = self.language['commands']['lang']
+
         if languageHandler.code_exists(code):
             self.language = languageHandler.get_language(code)
+            old_code = self.country_code
             self.country_code = code
-            return False, "Changed language to "+str(code)
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [(old_code, code)]))
+            return True, None
         else:
-            return False, "Country code does not exist!"
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
 

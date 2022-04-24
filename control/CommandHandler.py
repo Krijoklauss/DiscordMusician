@@ -90,8 +90,8 @@ class CommandHandler:
             status, responseMessage = await musicBot.set_nick(guild, args)
         elif command == "play":
             # Sleeps the thread for a specific time, depends on the execution timeout (This sleep timer is important to stop simultanious execution of the play function!)
-            if difference <= 1.5:
-                await asyncio.sleep(1)
+            if difference <= 0.5:
+                await asyncio.sleep(0.5)
             status, responseMessage = await musicBot.play(guild, msg.author.name, args)
         elif command == "stop":
             status, responseMessage = await musicBot.stop()
