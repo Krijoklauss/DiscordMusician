@@ -65,7 +65,8 @@ class MediaPlayer:
     async def send_embed(self, e: discord.Embed):
         for channel in self.guild.channels:
                 if channel.name == self.bound_channel and type(channel) == discord.TextChannel:
-                    await channel.send(embed=e)
+                    msg = await channel.send(embed=e)
+                    return msg
 
     async def show_help_message(self):
         myLanguage = self.language['commands']['help']
@@ -326,7 +327,7 @@ class MediaPlayer:
             return False, await self.create_embed_message(myLanguage['fails'][0], [])
         return True, None
 
-    async def disconnect(self, delay=120):
+    async def disconnect(self, delay=25):
         if self.disconnecting:
             return
 
@@ -334,17 +335,20 @@ class MediaPlayer:
         if self.voice_connection is None:
             await self.voice_connection.disconnect(force=True)
 
+        disconnectingMessage = await self.send_embed(await self.create_embed_message(self.language['disconnecting'], [str(delay)]))
         for i in range(delay):
             if self.voice_connection is not None and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
                 self.disconnecting = False
                 return
 
-            if i % 30 == 0 and i > 59:
-                await self.send_user_message("Disconnecting in "+str(delay-i)+" seconds!")
+            if i % 5 == 0 or i > (delay - 6):
+                await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], [str(delay-i)]))
             await asyncio.sleep(1)
 
         if self.voice_connection.is_connected() and not self.voice_connection.is_playing() and not self.voice_connection.is_paused():
             await self.voice_connection.disconnect(force=True)
+            await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+            await self.send_embed(await self.create_embed_message(self.language['disconnecting']['disconnected'], []))
             self.disconnecting = False
 
     async def show_current_song(self):
@@ -370,10 +374,8 @@ class MediaPlayer:
         myLanguage = self.language['commands']['queue']
         
         message = ""
-
-        _max = (page * 10)
+        _max = page * 10
         _min = _max - 10
-
         if len(self.queue) > 0:
             for i in range(_min, _max):
                 try:

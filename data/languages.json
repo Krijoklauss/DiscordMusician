@@ -462,6 +462,24 @@
                         }
                     ]
                 }
+            },
+            "disconnecting": {
+                "title": "Disconnecting!",
+                "description": "Disconnecting the Bot from current VoiceChannel",
+                "color": [255, 0, 128],
+                "fields": [
+                    {
+                        "name": "Time remaining",
+                        "value": "%s seconds remaining!",
+                        "inline": false
+                    }
+                ],
+                "disconnected": {
+                    "title": "Disconnected!",
+                    "description": "Bot disconnected from the VoiceChannel!",
+                    "color": [255, 0, 0],
+                    "fields": []
+                }
             }
         }
     }
