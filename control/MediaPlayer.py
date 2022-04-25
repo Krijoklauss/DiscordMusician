@@ -376,8 +376,11 @@ class MediaPlayer:
 
         if len(self.queue) > 0:
             for i in range(_min, _max):
-                song = self.queue[i]
-                message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
+                try:
+                    song = self.queue[i]
+                    message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
+                except (IndexError, KeyError):
+                    break
             message += "\nDas Maximum sind 10 Songs pro Seite!"
 
             await self.send_embed(await self.create_embed_message(myLanguage['works'], [message]))
