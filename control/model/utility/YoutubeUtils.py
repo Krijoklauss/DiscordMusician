@@ -1,3 +1,4 @@
+from posixpath import split
 from youtubesearchpython import Video
 from control.model.utility.Song import Song
 from youtubesearchpython import Playlist
@@ -12,10 +13,9 @@ class YoutubeUtils:
         self.spotify = SpotifyUtils(self)
         pass
 
-    def getSong(self, args):
-
+    async def getSong(self, args):
         if str(args[0]).__contains__("https://open.spotify.com/track/"):
-            return self.spotify.spotify_link_to_song(args[0])
+            return await self.spotify.spotify_link_to_song(args[0])
         elif str(args[0]).__contains__("https://www.youtube.com/watch?v="):
             song_link = args[0]
             video = Video.get(song_link)
@@ -59,4 +59,24 @@ class YoutubeUtils:
 
     def getPlaylistSongs(self, playlist_link):
         playlist = Playlist.get(playlist_link)
-        return self.getSong("https://www.youtube.com/watch?v="+str(playlist['videos'][0]['id']))
+        
+        myList = []
+        for i, video in enumerate(playlist['videos']):
+            videoId = video['id']
+            title = video['title']
+
+            temp = video['duration']
+            splitter = temp.split(":")
+            temp1 = int(splitter[0]) * 60
+            temp2 = splitter [1]
+            duration = int(temp1) + int(temp2)
+            videoLink = "https://www.youtube.com/watch?v="+str(videoId)
+
+            myList.append(Song(videoLink, None, title, duration, 0))
+        return myList
+
+    async def get_player_link(self, youtube_link):
+        # Fetch audio streamable url
+        video = Video.get(youtube_link)
+        player_link = self.url_fetcher.get(video, 251)
+        return player_link

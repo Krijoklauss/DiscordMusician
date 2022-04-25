@@ -28,17 +28,11 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
 
 
 -  Upcomming updates
-   -  Working on fast Playlist implementation
    -  Working on the seek functions which is currently locked due to very slow performance
 
 -  Latest updates
-   -  Replaced normal messages with embed messages only, for every command
-   -  Common language has been changed to English
-   -  Added two language packages (English, German)
-   -  Fixed broken pipe Error when Songs have been paused for a long time!
-   -  Some minor code improvements or bug fixes
-   -  Changed the README language from German to English!
-
+   -  Updated youtube playlist implementation
+      -  It's way faster now and works without any bugs
 
 -  Config
       If you want to use this Bot on your Server you can either inivite it by using this link *COMING SOON*,

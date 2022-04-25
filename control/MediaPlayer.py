@@ -3,10 +3,11 @@ import asyncio
 from control.model.utility.YoutubeUtils import YoutubeUtils
 from control.model.utility.Song import Song
 from control.LanguageHandler import LanguageHandler
+from control.model.utility.Playlist import Playlist
+
 
 languageHandler = LanguageHandler()
 possible_prefixes = ["!", "?", "-", ",", ".", "*", "'", "#", "=", "&", "$", "%", "§", "卐"]
-
 
 class MediaPlayer:
     def __init__(self, identity, client_name, pref="!", bounded=False, chan="", lang="en"):
@@ -50,6 +51,11 @@ class MediaPlayer:
         msg = discord.Embed(title=title, description=description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
         for i, field in enumerate(embedResponse['fields']):
             try:
+                name = field['name']
+            except (IndexError, KeyError):
+                return msg
+
+            try:
                 replacement = replacements[i]
                 msg.add_field(name=field['name'], value=field['value'] % replacement, inline=field['inline'])
             except (IndexError, KeyError):
@@ -62,19 +68,20 @@ class MediaPlayer:
                     await channel.send(embed=e)
 
     async def show_help_message(self):
-        helpMessage = "Dies ist eine Liste aller verfügbaren commands und ihrer Anwendung!\n"
+        myLanguage = self.language['commands']['help']
 
         commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help", "lang"]
-        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", "None", "None", "None", "None", "*TIME_TO_SKIP*", "None", "None", "None", "None", "None", "None"]
+        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", None, None, None, None, "*TIME_TO_SKIP*", None, None, None, None, None, "*COUNTRY_CODE*"]
 
+        myEmbed = await self.create_embed_message(myLanguage['works'], [])
         for i, command in enumerate(commands):
-            helpMessage += self.prefix + command + " | " + usages[i] + "\n"
+            v = usages[i]
+            if v is None:
+                myEmbed.add_field(name=command, value="No arguments required!", inline=False)
+            else:
+                myEmbed.add_field(name=command, value=v, inline=False)
 
-        _embed = discord.Embed(title="Testing title", description="Some description", color=discord.Color.from_rgb(255, 0, 255))
-        _embed.add_field(name="Field1", value="not inline", inline=False)
-        _embed.add_field(name="Field2", value="inline", inline=True)
-        await self.send_embed(_embed)
-
+        await self.send_embed(myEmbed)
         return True, None
 
     async def set_prefix(self, newPrefix):
@@ -159,15 +166,25 @@ class MediaPlayer:
         if self.voice_connection is None or not self.voice_connection.is_connected():
             self.voice_connection = await self.connect(voiceChannel)
 
+        newSong = None
         if str(args[0]).__contains__("list"):
-            return False, "Under maintenance!"
+            playlist = Playlist(args[0])
+            for song in playlist.songs:
+                self.queue.append(song)
+            
+            try:
+                newSong = self.queue.pop(0)
+            except (IndexError, ValueError, KeyError):
+                return False, await self.create_embed_message(myLanguage['fails'][3], [])
         else:
-            newSong = self.youtube.getSong(args)
-            self.queue.append(newSong)
+            newSong = await self.youtube.getSong(args)
 
         # Returns newSong if it's a tuple object, because that means something in getSong() went wrong!
         if type(newSong) == tuple:
             return False, await self.create_embed_message(myLanguage['fails'][newSong[0]], newSong[1])
+        
+        if newSong is not None and type(newSong) == Song:
+            self.queue.append(newSong)
             
         if self.voice_connection.is_playing() or self.voice_connection.is_paused():
             await self.send_embed(await self.create_embed_message(myLanguage['works'], [newSong.song_title, newSong.viewCount]))
@@ -188,15 +205,18 @@ class MediaPlayer:
             self.current_song = None
             self.current_progress = 0
 
-
             currentSong = self.queue.pop(0)
+            if currentSong.player_link is None:
+                currentSong.player_link = await self.youtube.get_player_link(currentSong.youtube_link)
+
             if currentSong.audio_source is None:
                 await currentSong.init_audio_source()
 
             self.current_song = currentSong
+            self.title_backup = currentSong.song_title
 
             # Sends special message to channel
-            await self.send_embed(await self.create_embed_message(myLanguage['works'], [currentSong.song_title]))
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [currentSong.song_title, currentSong.youtube_link]))
 
             if self.voice_connection is not None and self.voice_connection.is_playing():
                 self.voice_connection.stop()
@@ -285,7 +305,6 @@ class MediaPlayer:
 
     async def stop(self):
         myLanguage = self.language['commands']['stop']
-        title = self.current_song.song_title
 
         self.current_song = None
         self.current_progress = 0
@@ -299,7 +318,7 @@ class MediaPlayer:
             self.voice_connection.stop()
 
             # Sends special message
-            await self.send_embed(await self.create_embed_message(myLanguage['works'], [title]))
+            await self.send_embed(await self.create_embed_message(myLanguage['works'], [self.title_backup]))
 
             # Initiate disconnect
             await self.disconnect()
@@ -347,14 +366,20 @@ class MediaPlayer:
         else:
             return False, await self.create_embed_message(myLanguage['fails'][0], [])
     
-    async def show_current_queue(self):
+    async def show_current_queue(self, page=1):
         myLanguage = self.language['commands']['queue']
-
+        
         message = ""
+
+        _max = (page * 10)
+        _min = _max - 10
+
         if len(self.queue) > 0:
-            for i, song in enumerate(self.queue):
+            for i in range(_min, _max):
+                song = self.queue[i]
                 message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
-            
+            message += "\nDas Maximum sind 10 Songs pro Seite!"
+
             await self.send_embed(await self.create_embed_message(myLanguage['works'], [message]))
             return True, None
         else:

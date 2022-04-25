@@ -12,11 +12,11 @@ class SpotifyUtils:
         self.sp = spotipy.Spotify(client_credentials_manager=self.client_credentials_manager)
         pass
     
-    def spotify_link_to_song(self, link):
+    async def spotify_link_to_song(self, link):
         splitter = link.split("/") 
         song_id = splitter[len(splitter)-1]
         meta = self.sp.track(song_id)
         song_name = str(meta['name'])
         artist = str(meta['artists'][0]['name'])
         # album_release = str(meta['album']['release_date'])
-        return self.youtube.getSong([artist, song_name])
+        return await self.youtube.getSong([artist, song_name])

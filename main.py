@@ -59,7 +59,7 @@ def __main__():
     # Run the Client and except on KeyboardInterrupt
     try:
         client.run(token)
-    except (KeyboardInterrupt, RuntimeError):
+    except RuntimeError:
         pass
 
     print("Saving current guild settings!")

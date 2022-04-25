@@ -187,6 +187,11 @@
                                 "name": "Upcoming song", 
                                 "value": "Now playing %s.", 
                                 "inline": false
+                            },
+                            {
+                                "name": "Youtube link",
+                                "value": "%s",
+                                "inline": false
                             }
                         ]
                     },
@@ -366,7 +371,7 @@
                     "works": {
                         "title": "Showing queue",
                         "description": "Shows the current queue",
-                        "color": ["255, 0, 255"],
+                        "color": [255, 0, 255],
                         "fields": [
                             {
                                 "name": "Current queue",
@@ -380,11 +385,13 @@
                             "title": "Error",
                             "description": "Queue is None!",
                             "color": [255, 0, 0],
-                            "fields": {
-                                "name": "Response message",
-                                "value": "The current queue is empty!",
-                                "inline": false
-                            }
+                            "fields": [
+                                {
+                                    "name": "Response message",
+                                    "value": "The current queue is empty!",
+                                    "inline": false
+                                }
+                            ]
                         }
                     ]
                 },
@@ -393,11 +400,13 @@
                         "title": "Emptying queue",
                         "description": "Clears the current queue!",
                         "color": [255, 0, 255],
-                        "fields": {
-                            "name": "Clearing...",
-                            "value": "%s songs have been removed from the queue!",
-                            "inline": false
-                        }
+                        "fields": [
+                            {
+                                "name": "Clearing...",
+                                "value": "%s songs have been removed from the queue!",
+                                "inline": false
+                            }
+                        ]
                     },
                     "fails": []
                 },
@@ -417,7 +426,12 @@
                     "fails": []
                 },
                 "help": {
-                    "works": "These are the available commands for this bot",
+                    "works": {
+                        "title": "Commands",
+                        "description": "Shows a list of all commands and their usage!",
+                        "color": [255, 0, 255],
+                        "fields": []
+                    },
                     "fails": []
                 },
                 "lang": {

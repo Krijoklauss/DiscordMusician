@@ -106,7 +106,14 @@ class CommandHandler:
         elif command == "np":
             status, responseMessage = await musicBot.show_current_song()
         elif command == "queue":
-            status, responseMessage = await musicBot.show_current_queue()
+            if len(args) > 0:
+                try:
+                    p = int(args[0])
+                    status, responseMessage = await musicBot.show_current_queue(page=p)
+                except:
+                    return 
+            else:
+                status, responseMessage = await musicBot.show_current_queue()
         elif command == "clear":
             status, responseMessage = await musicBot.clear_current_queue()
         elif command == "cleaner":
@@ -121,8 +128,5 @@ class CommandHandler:
 
         # Sends error message on False status!
         if not status:
-            if type(responseMessage) == discord.Embed:
-                await msg.channel.send(embed=responseMessage)
-            else:
-                await msg.channel.send(responseMessage)
+            await msg.channel.send(embed=responseMessage)
 
