@@ -122,6 +122,8 @@ class CommandHandler:
             status, responseMessage = await musicBot.show_help_message()
         elif command == "lang":
             status, responseMessage = await musicBot.change_language(args[0])
+        elif command == "languages":
+            status, responseMessage = await musicBot.show_languages()
         else:
             await msg.channel.send("Der Command den Sie eingegeben haben existiert nich! ("+str(command)+")")
             return

@@ -23,3 +23,9 @@ class LanguageHandler:
 
     def get_language(self, country_code: str):
         return self.languages['languages'][country_code]
+
+    def get_all_languages(self):
+        temps = []
+        for language in self.languages['languages']:
+            temps.append(language)
+        return temps

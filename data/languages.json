@@ -580,6 +580,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "All languages",
+                        "description": "Shows all languages",
+                        "color": [
+                            0,
+                            255,
+                            0
+                        ],
+                        "fields": [
+                            {
+                                "name": "Languages",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -1198,6 +1217,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Alle Sprachen",
+                        "description": "Zeigt alle Sprachen an",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Sprachen",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -1816,6 +1854,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Alle tale",
+                        "description": "Wys alle tale",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Tale",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -2434,6 +2491,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0643\u0644 \u0627\u0644\u0644\u063a\u0627\u062a",
+                        "description": "\u064a\u0638\u0647\u0631 \u0643\u0644 \u0627\u0644\u0644\u063a\u0627\u062a",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0627\u0644\u0644\u063a\u0627\u062a",
+                                "value": "\u066a\u0633",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -2489,7 +2565,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Prefiksi d\u0259yi\u015fdirm\u0259k al\u0131nmad\u0131",
                             "color": [
                                 255,
@@ -2530,7 +2606,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Kanal\u0131 d\u0259yi\u015fm\u0259k al\u0131nmad\u0131",
                             "color": [
                                 255,
@@ -2566,7 +2642,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "L\u0259q\u0259bi d\u0259yi\u015fdirm\u0259k al\u0131nmad\u0131",
                             "color": [
                                 255,
@@ -2582,7 +2658,7 @@
                             ]
                         },
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "L\u0259q\u0259bi d\u0259yi\u015fdirm\u0259k al\u0131nmad\u0131",
                             "color": [
                                 255,
@@ -2623,7 +2699,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "S\u0259sli kanala qo\u015fulmaq al\u0131nmad\u0131!",
                             "color": [
                                 255,
@@ -2639,7 +2715,7 @@
                             ]
                         },
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Video tap\u0131lmad\u0131!",
                             "color": [
                                 255,
@@ -2655,7 +2731,7 @@
                             ]
                         },
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Mahn\u0131 oxumaq al\u0131nmad\u0131",
                             "color": [
                                 255,
@@ -2671,7 +2747,7 @@
                             ]
                         },
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Ba\u015flamaq al\u0131nmad\u0131. link!",
                             "color": [
                                 255,
@@ -2736,7 +2812,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Mahn\u0131n\u0131 dayand\u0131rmaq al\u0131nmad\u0131!",
                             "color": [
                                 255,
@@ -2772,7 +2848,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Cari mahn\u0131n\u0131 \u00f6t\u00fcrm\u0259k m\u00fcmk\u00fcn olmad\u0131",
                             "color": [
                                 255,
@@ -2808,7 +2884,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Cari mahn\u0131ya fasil\u0259 verm\u0259k m\u00fcmk\u00fcn olmad\u0131!",
                             "color": [
                                 255,
@@ -2844,7 +2920,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Davam etm\u0259k m\u00fcmk\u00fcn olmad\u0131",
                             "color": [
                                 255,
@@ -2913,7 +2989,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "Mahn\u0131 tap\u0131lmad\u0131",
                             "color": [
                                 255,
@@ -2949,7 +3025,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "N\u00f6vb\u0259 Yoxdur!",
                             "color": [
                                 255,
@@ -3036,7 +3112,7 @@
                     },
                     "fails": [
                         {
-                            "title": "S\u0259hv",
+                            "title": "X\u0259ta",
                             "description": "NoLangFound X\u0259tas\u0131",
                             "color": [
                                 255,
@@ -3052,6 +3128,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "B\u00fct\u00fcn dill\u0259r",
+                        "description": "B\u00fct\u00fcn dill\u0259ri g\u00f6st\u0259rir",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Dill\u0259r",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -3670,6 +3765,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0423\u0441\u0435 \u043c\u043e\u0432\u044b",
+                        "description": "\u041f\u0430\u043a\u0430\u0437\u0432\u0430\u0435 \u045e\u0441\u0435 \u043c\u043e\u0432\u044b",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u041c\u043e\u0432\u044b",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -4288,6 +4402,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0412\u0441\u0438\u0447\u043a\u0438 \u0435\u0437\u0438\u0446\u0438",
+                        "description": "\u041f\u043e\u043a\u0430\u0437\u0432\u0430 \u0432\u0441\u0438\u0447\u043a\u0438 \u0435\u0437\u0438\u0446\u0438",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0435\u0437\u0438\u0446\u0438",
+                                "value": "%\u0441",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -4906,6 +5039,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Tots els idiomes",
+                        "description": "Mostra tots els idiomes",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Idiomes",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -5524,6 +5676,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "V\u0161echny jazyky",
+                        "description": "Zobrazuje v\u0161echny jazyky",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Jazyky",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -6142,6 +6313,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Pob iaith",
+                        "description": "Yn dangos pob iaith",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Ieithoedd",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -6760,6 +6950,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Alle sprog",
+                        "description": "Viser alle sprog",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Sprog",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -7378,6 +7587,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u039f\u03bb\u03b5\u03c2 \u03bf\u03b9 \u03b3\u03bb\u03ce\u03c3\u03c3\u03b5\u03c2",
+                        "description": "\u0395\u03bc\u03c6\u03b1\u03bd\u03af\u03b6\u03b5\u03b9 \u03cc\u03bb\u03b5\u03c2 \u03c4\u03b9\u03c2 \u03b3\u03bb\u03ce\u03c3\u03c3\u03b5\u03c2",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0393\u03bb\u03ce\u03c3\u03c3\u03b5\u03c2",
+                                "value": "%\u03bc\u03b9\u03ba\u03c1\u03cc",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -7996,6 +8224,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Todos los idiomas",
+                        "description": "Muestra todos los idiomas",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Idiomas",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -8614,6 +8861,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "K\u00f5ik keeled",
+                        "description": "N\u00e4itab k\u00f5iki keeli",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Keeled",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -9232,6 +9498,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Hizkuntza guztiak",
+                        "description": "Hizkuntza guztiak erakusten ditu",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Hizkuntzak",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -9850,6 +10135,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u062a\u0645\u0627\u0645 \u0632\u0628\u0627\u0646\u0647\u0627",
+                        "description": "\u0647\u0645\u0647 \u0632\u0628\u0627\u0646 \u0647\u0627 \u0631\u0627 \u0646\u0634\u0627\u0646 \u0645\u06cc \u062f\u0647\u062f",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0632\u0628\u0627\u0646 \u0647\u0627",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -10468,6 +10772,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Kaikki kielet",
+                        "description": "N\u00e4ytt\u00e4\u00e4 kaikki kielet",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Kieli (kielet",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -11086,6 +11409,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Toutes les langues",
+                        "description": "Affiche toutes les langues",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Langues",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -11704,6 +12046,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Gach teanga",
+                        "description": "Taispe\u00e1in gach teanga",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Teangacha",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -12322,6 +12683,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "todas as linguas",
+                        "description": "mostrar todos os idiomas",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Linguas",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -12940,6 +13320,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0938\u093e\u0930\u0940 \u092d\u093e\u0937\u093e\u090f\u0901",
+                        "description": "\u0938\u092d\u0940 \u092d\u093e\u0937\u093e\u090f\u0902 \u0926\u093f\u0916\u093e\u0924\u093e \u0939\u0948",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u092c\u094b\u0932\u0940",
+                                "value": "%\u090f\u0938",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -13558,6 +13957,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Svi jezici",
+                        "description": "Prikazuje sve jezike",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Jezici",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -14176,6 +14594,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Tout lang",
+                        "description": "Montre tout lang",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Lang",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -14794,6 +15231,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u00d6sszes nyelv",
+                        "description": "Az \u00f6sszes nyelvet mutatja",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Nyelvek",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -15412,6 +15868,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0532\u0578\u056c\u0578\u0580 \u056c\u0565\u0566\u0578\u0582\u0576\u0565\u0580\u0568",
+                        "description": "\u0551\u0578\u0582\u0575\u0581 \u0567 \u057f\u0561\u056c\u056b\u057d \u0562\u0578\u056c\u0578\u0580 \u056c\u0565\u0566\u0578\u0582\u0576\u0565\u0580\u0568",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u053c\u0565\u0566\u0578\u0582\u0576\u0565\u0580",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -16030,6 +16505,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Semua bahasa",
+                        "description": "Menampilkan semua bahasa",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Bahasa",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -16648,6 +17142,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u00d6ll tungum\u00e1l",
+                        "description": "S\u00fdnir \u00f6ll tungum\u00e1l",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Tungum\u00e1l",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -17266,6 +17779,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Tutte le lingue",
+                        "description": "Mostra tutte le lingue",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Le lingue",
+                                "value": "%S",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -17884,6 +18416,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u05db\u05dc \u05d4\u05e9\u05e4\u05d5\u05ea",
+                        "description": "\u05de\u05e6\u05d9\u05d2 \u05d0\u05ea \u05db\u05dc \u05d4\u05e9\u05e4\u05d5\u05ea",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u05e9\u05e4\u05d5\u05ea",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -18502,6 +19053,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u3059\u3079\u3066\u306e\u8a00\u8a9e",
+                        "description": "\u3059\u3079\u3066\u306e\u8a00\u8a9e\u3092\u8868\u793a",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u8a00\u8a9e",
+                                "value": "\uff05s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -19120,6 +19690,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u10e7\u10d5\u10d4\u10da\u10d0 \u10d4\u10dc\u10d0\u10d6\u10d4",
+                        "description": "\u10d0\u10e9\u10d5\u10d4\u10dc\u10d4\u10d1\u10e1 \u10e7\u10d5\u10d4\u10da\u10d0 \u10d4\u10dc\u10d0\u10e1",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u10d4\u10dc\u10d4\u10d1\u10d8",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -19738,6 +20327,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\ubaa8\ub4e0 \uc5b8\uc5b4",
+                        "description": "\ubaa8\ub4e0 \uc5b8\uc5b4 \ud45c\uc2dc",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\uc5b8\uc5b4",
+                                "value": "%\uc5d0\uc2a4",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -20356,6 +20964,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Visos kalbos",
+                        "description": "Rodo visas kalbas",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Kalbos",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -20603,7 +21230,7 @@
                             "fields": [
                                 {
                                     "name": "Atbildes zi\u0146ojums",
-                                    "value": "null",
+                                    "value": "nulles",
                                     "inline": false
                                 }
                             ]
@@ -20974,6 +21601,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Visas valodas",
+                        "description": "R\u0101da visas valodas",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Valodas",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -21592,6 +22238,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0421\u0438\u0442\u0435 \u0458\u0430\u0437\u0438\u0446\u0438",
+                        "description": "\u0413\u0438 \u043f\u0440\u0438\u043a\u0430\u0436\u0443\u0432\u0430 \u0441\u0438\u0442\u0435 \u0458\u0430\u0437\u0438\u0446\u0438",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0408\u0430\u0437\u0438\u0446\u0438",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -22210,6 +22875,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Semua bahasa",
+                        "description": "Menunjukkan semua bahasa",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Bahasa",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -22828,6 +23512,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Il-lingwi kollha",
+                        "description": "Juri l-lingwi kollha",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Lingwi",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -23446,6 +24149,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Alle talen",
+                        "description": "Toont alle talen",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Talen",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -24064,6 +24786,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Alle spr\u00e5k",
+                        "description": "Viser alle spr\u00e5k",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Spr\u00e5k",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -24682,6 +25423,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Wszystkie j\u0119zyki",
+                        "description": "Pokazuje wszystkie j\u0119zyki",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "J\u0119zyki",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -25300,6 +26060,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Todas as l\u00ednguas",
+                        "description": "Mostra todos os idiomas",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "l\u00ednguas",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -25918,6 +26697,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Toate limbile",
+                        "description": "Afi\u0219eaz\u0103 toate limbile",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Limbi",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -26521,7 +27319,7 @@
                     "fails": [
                         {
                             "title": "\u041e\u0448\u0438\u0431\u043a\u0430",
-                            "description": "\u041d\u043e\u043b\u0430\u043d\u0433\u0444\u0430\u0443\u043d\u0434\u0435\u0440\u0440\u043e\u0440",
+                            "description": "nolangfoundderror",
                             "color": [
                                 255,
                                 0,
@@ -26536,6 +27334,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0412\u0441\u0435 \u044f\u0437\u044b\u043a\u0438",
+                        "description": "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u0442 \u0432\u0441\u0435 \u044f\u0437\u044b\u043a\u0438",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u042f\u0437\u044b\u043a\u0438",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -27154,6 +27971,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "V\u0161etky jazyky",
+                        "description": "Zobrazuje v\u0161etky jazyky",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Jazyky",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -27772,6 +28608,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Vsi jeziki",
+                        "description": "Prikazuje vse jezike",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "jeziki",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -28390,6 +29245,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "T\u00eb gjitha gjuh\u00ebt",
+                        "description": "Tregon t\u00eb gjitha gjuh\u00ebt",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Gjuh\u00ebt",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -28747,7 +29621,7 @@
                 },
                 "pause": {
                     "works": {
-                        "title": "\u041f\u0430\u0443\u0437\u0430",
+                        "title": "\u041f\u0430\u0443\u0437\u0438\u0440\u0430\u045a\u0435",
                         "description": "\u0422\u0440\u0435\u043d\u0443\u0442\u043d\u0430 \u043f\u0435\u0441\u043c\u0430 \u0458\u0435 \u043f\u0430\u0443\u0437\u0438\u0440\u0430\u043d\u0430",
                         "color": [
                             255,
@@ -29008,6 +29882,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0421\u0432\u0438 \u0458\u0435\u0437\u0438\u0446\u0438",
+                        "description": "\u041f\u0440\u0438\u043a\u0430\u0437\u0443\u0458\u0435 \u0441\u0432\u0435 \u0458\u0435\u0437\u0438\u043a\u0435",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0408\u0435\u0437\u0438\u0446\u0438",
+                                "value": "%\u0441",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -29626,6 +30519,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Alla spr\u00e5k",
+                        "description": "Visar alla spr\u00e5k",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "spr\u00e5k",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -30244,6 +31156,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Lugha zote",
+                        "description": "Inaonyesha lugha zote",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Lugha",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -30862,6 +31793,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0e17\u0e38\u0e01\u0e20\u0e32\u0e29\u0e32",
+                        "description": "\u0e41\u0e2a\u0e14\u0e07\u0e20\u0e32\u0e29\u0e32\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0e20\u0e32\u0e29\u0e32",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -31480,6 +32430,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "Lahat ng mga wika",
+                        "description": "Ipinapakita ang lahat ng mga wika",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Mga wika",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -32098,6 +33067,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "B\u00fct\u00fcn diller",
+                        "description": "T\u00fcm dilleri g\u00f6sterir",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Diller",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -32716,6 +33704,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u0423\u0441\u0456 \u043c\u043e\u0432\u0438",
+                        "description": "\u041f\u043e\u043a\u0430\u0437\u0443\u0454 \u0432\u0441\u0456 \u043c\u043e\u0432\u0438",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u041c\u043e\u0432\u0438",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -33334,6 +34341,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u062a\u0645\u0627\u0645 \u0632\u0628\u0627\u0646\u06cc\u06ba\u06d4",
+                        "description": "\u062a\u0645\u0627\u0645 \u0632\u0628\u0627\u0646\u06cc\u06ba \u062f\u06a9\u06be\u0627\u062a\u0627 \u06c1\u06d2\u06d4",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u0632\u0628\u0627\u0646\u06cc\u06ba",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -33952,6 +34978,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "T\u1ea5t c\u1ea3 c\u00e1c ng\u00f4n ng\u1eef",
+                        "description": "Hi\u1ec3n th\u1ecb t\u1ea5t c\u1ea3 c\u00e1c ng\u00f4n ng\u1eef",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "Ng\u00f4n ng\u1eef",
+                                "value": "%S",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -34570,6 +35615,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u05d0\u05dc\u05e2 \u05e9\u05e4\u05e8\u05d0\u05db\u05df",
+                        "description": "\u05d5\u05d5\u05d9\u05d9\u05d6\u05d8 \u05d0\u05b7\u05dc\u05e2 \u05e9\u05e4\u05bc\u05e8\u05d0\u05b7\u05db\u05df",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u05e9\u05e4\u05bc\u05e8\u05d0\u05b7\u05db\u05df",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -35188,6 +36252,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u6240\u6709\u8bed\u8a00",
+                        "description": "\u663e\u793a\u6240\u6709\u8bed\u8a00",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u8bed\u8a00",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {
@@ -35806,6 +36889,25 @@
                             ]
                         }
                     ]
+                },
+                "languages": {
+                    "works": {
+                        "title": "\u6240\u6709\u8a9e\u8a00",
+                        "description": "\u986f\u793a\u6240\u6709\u8a9e\u8a00",
+                        "color": [
+                            255,
+                            0,
+                            255
+                        ],
+                        "fields": [
+                            {
+                                "name": "\u8a9e\u8a00",
+                                "value": "%s",
+                                "inline": false
+                            }
+                        ]
+                    },
+                    "fails": []
                 }
             },
             "disconnecting": {

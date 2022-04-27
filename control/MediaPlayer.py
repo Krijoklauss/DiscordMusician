@@ -1,3 +1,4 @@
+from logging.handlers import MemoryHandler
 import discord
 import asyncio
 from control.model.utility.YoutubeUtils import YoutubeUtils
@@ -71,8 +72,8 @@ class MediaPlayer:
     async def show_help_message(self):
         myLanguage = self.language['commands']['help']
 
-        commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help", "lang"]
-        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", None, None, None, None, "*TIME_TO_SKIP*", None, None, None, None, None, "*COUNTRY_CODE*"]
+        commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help", "lang", "languages"]
+        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", None, None, None, None, "*TIME_TO_SKIP*", None, None, None, None, None, "*COUNTRY_CODE*", None]
 
         myEmbed = await self.create_embed_message(myLanguage['works'], [])
         for i, command in enumerate(commands):
@@ -415,4 +416,13 @@ class MediaPlayer:
         else:
             return False, await self.create_embed_message(myLanguage['fails'][0], [])
 
+    async def show_languages(self):
+        global languageHandler
 
+        replacement = ""
+        for i, language in enumerate(languageHandler.get_all_languages()):
+            replacement += str(i+1) + ". " + str(language) + "\n"
+
+        myLanguage = self.language['commands']['languages']
+        await self.send_embed(await self.create_embed_message(myLanguage['works'], [replacement]))
+        return True, None

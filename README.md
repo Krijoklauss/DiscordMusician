@@ -25,6 +25,7 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
       -  cleaner
       -  help
       -  lang
+      -  languages
 
 
 -  Upcomming updates
