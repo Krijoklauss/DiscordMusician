@@ -1,15 +1,23 @@
 # Imports
-from click import command
+import json
 import discord
-from os import environ
+from click import command
 from control.CommandHandler import CommandHandler
+
 
 # Declaring required Intents
 inten = discord.Intents.default()
 inten.members = True
 
-# Declaring Bot token and initiating new discord.Client()
-token = environ.get("MUSIC_BOT_SNAPSHOT")
+# Declaring bot type
+_type = "MUSIC_BOT_SNAPSHOT"
+
+# Loading Bot token
+token = None
+with open("../DiscordTokens/tokens.json", "r", encoding="utf-8") as infile:
+    token = json.loads(infile.read())['tokens'][_type]
+
+# Initiating new discord.Client()
 client = discord.Client(intents=inten)
 
 commandHandler = None

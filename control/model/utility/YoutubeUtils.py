@@ -1,4 +1,3 @@
-from posixpath import split
 from youtubesearchpython import Video
 from control.model.utility.Song import Song
 from youtubesearchpython import Playlist
