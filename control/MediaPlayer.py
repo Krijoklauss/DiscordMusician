@@ -338,6 +338,7 @@ class MediaPlayer:
         for i in range(delay):
             if self.voice_connection is not None and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
                 self.disconnecting = False
+                await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
                 return
 
             if i % 5 == 0 or i > (delay - 6):

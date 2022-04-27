@@ -17,6 +17,25 @@ class CommandHandler:
             musicBot.msg_counter = 0
             await musicBot.clear_messages()
 
+    async def create_embed_message(self, embedResponse, replacements):
+        title = embedResponse['title']
+        description = embedResponse['description']
+        color = embedResponse['color']
+
+        msg = discord.Embed(title=title, description=description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+        for i, field in enumerate(embedResponse['fields']):
+            try:
+                name = field['name']
+            except (IndexError, KeyError):
+                return msg
+
+            try:
+                replacement = replacements[i]
+                msg.add_field(name=field['name'], value=field['value'] % replacement, inline=field['inline'])
+            except (IndexError, KeyError):
+                msg.add_field(name=field['name'], value=field['value'], inline=field['inline'])
+        return msg
+
     # Main Function from this class which handles the incoming messages
     async def handle(self, msg: discord.message):
         # Declaring variables
@@ -52,7 +71,6 @@ class CommandHandler:
             pass
 
         if musicBot.prefix != prefix:
-            await msg.channel.send("Falscher prefix!\nIhr prefix lautet: "+str(musicBot.prefix))
             return
 
         args = []
@@ -65,20 +83,24 @@ class CommandHandler:
         except IndexError:
             print("No arguments provided!")
 
+
+        # Getting my current language to send valid bot messages
+        myLanguage = musicBot.language['commands']['basicerrors']['fails']
+
         # Checking if too many arguments are provided!
         argsExceptions = ["nick", "play"]
         if len(args) > 1 and not argsExceptions.__contains__(command):
-            await msg.channel.send("Sie dürfen nur maximal ein einziges Argument angeben!")
+            await msg.channel.send(embed=await self.create_embed_message(myLanguage[0], []))
             return
 
         # Check if command needs an argument!
         needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang"]
         if len(args) < 1 and needsArguments.__contains__(command):
-            await msg.channel.send("Dieser command benötigt mindestens ein Argument!")
+            await msg.channel.send(embed=await self.create_embed_message(myLanguage[1], []))
             return
 
         if not musicBot.is_bound and command != "bind":
-            await msg.channel.send("Sie müssen den Bot zuerst mit dem Befehl '!bind' einem Channel zuordnen!")
+            await msg.channel.send(embed=await self.create_embed_message(myLanguage[2], []))
             return
 
         # Executes the required function!
