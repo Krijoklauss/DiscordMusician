@@ -17,7 +17,7 @@ class MediaPlayer:
         self.guild = None
         self.client_name = client_name
         self.country_code = lang
-        self.language = languageHandler.get_language("en")
+        self.language = languageHandler.get_language(lang)
         self.prefix = pref
         self.msg_counter = 0
         self.is_bound = bounded
@@ -198,8 +198,6 @@ class MediaPlayer:
         return True, None
         
     async def queue_loop(self):
-        myLanguage = self.language['commands']['playing']
-
         self.in_queue_loop = True
         while len(self.queue) > 0:
 
@@ -217,7 +215,7 @@ class MediaPlayer:
             self.title_backup = currentSong.song_title
 
             # Sends special message to channel
-            await self.send_embed(await self.create_embed_message(myLanguage['works'], [currentSong.song_title, currentSong.youtube_link]))
+            await self.send_embed(await self.create_embed_message(self.language['commands']['playing']['works'], [currentSong.song_title, currentSong.youtube_link]))
 
             if self.voice_connection is not None and self.voice_connection.is_playing():
                 self.voice_connection.stop()
@@ -327,7 +325,7 @@ class MediaPlayer:
             return False, await self.create_embed_message(myLanguage['fails'][0], [])
         return True, None
 
-    async def disconnect(self, delay=25):
+    async def disconnect(self, delay=120):
         if self.disconnecting:
             return
 

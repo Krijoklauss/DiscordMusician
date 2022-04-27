@@ -3,12 +3,12 @@
         "prefix": "!",
         "channel_bound": true,
         "bound_channel": "musik",
-        "lang": "en"
+        "lang": "ru"
     },
     "274951121372708877": {
         "prefix": "!",
         "channel_bound": true,
         "bound_channel": "musik",
-        "lang": "en"
+        "lang": "de"
     }
 }
