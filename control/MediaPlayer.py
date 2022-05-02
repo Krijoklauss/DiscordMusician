@@ -1,4 +1,3 @@
-from logging.handlers import MemoryHandler
 import discord
 import asyncio
 from control.model.utility.YoutubeUtils import YoutubeUtils
@@ -9,6 +8,7 @@ from control.model.utility.Playlist import Playlist
 
 languageHandler = LanguageHandler()
 possible_prefixes = ["!", "?", "-", ",", ".", "*", "'", "#", "=", "&", "$", "%", "§", "卐"]
+
 
 class MediaPlayer:
     def __init__(self, identity, client_name, pref="!", bounded=False, chan="", lang="en"):
@@ -393,7 +393,7 @@ class MediaPlayer:
     async def clear_current_queue(self):
         myLanguage = self.language['commands']['clear']
         self.queue = []
-        return False, self.create_embed_message(myLanguage['works'], [len(self.queue)])
+        return False, await self.create_embed_message(myLanguage['works'], [len(self.queue)])
 
     async def clear_messages(self):
         myLanguage = self.language['commands']['cleaner']

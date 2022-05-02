@@ -1,8 +1,7 @@
-import discord
-
 from control.model.utility.YoutubeUtils import YoutubeUtils
 
 youtube = YoutubeUtils()
+
 
 class Playlist:
     def __init__(self, playlist_link):

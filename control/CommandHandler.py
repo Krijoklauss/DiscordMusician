@@ -1,7 +1,8 @@
-import asyncio
 import discord
+import asyncio
 from datetime import datetime
 from control.GuildHandler import GuildHandler
+
 
 # This class handles incoming commands from different guilds
 class CommandHandler:

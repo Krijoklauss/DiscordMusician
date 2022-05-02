@@ -1,0 +1,14 @@
+# Main Discord library
+discord
+
+# Spotify data receiver
+spotipy
+
+# Search for youtube videos and playlists
+ytdl
+yt-dlp
+youtube_dl
+youtube-search-python
+
+# Utiliys
+pynacl

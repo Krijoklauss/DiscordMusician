@@ -1,7 +1,6 @@
 # Imports
 import json
 import discord
-from click import command
 from control.CommandHandler import CommandHandler
 
 

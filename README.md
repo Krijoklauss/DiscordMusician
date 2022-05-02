@@ -19,6 +19,8 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
       -  pause
       -  stop
       -  resume
+      -  loop (Coming soon!)
+      -  loopqueue (Coming soon!)
       -  queue
       -  seek
       -  clear
@@ -28,27 +30,15 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
       -  languages
 
 
--  Upcomming updates
+-  Upcoming updates
+   -  Working on Spotify playlist implementation (Currently only YouTube is working except single songs!)
+   -  Working on new loop function
    -  Working on the seek functions which is currently locked due to very slow performance
 
 -  Latest updates
-   -  Updated youtube playlist implementation
-      -  It's way faster now and works without any bugs
-
-   -  Fixed a bug where normal youtube links wont work anymore
-      -  When specified a normal youtube link as argument on play function
-         the bot would run into an error due to some library issues with python
-
-   -  Implemented several new languages (~ 50 new language packages)
-      -  If the Bot runs into an Error based on a languge error please let me know,
-         it was an automated process to create the languages.json file
-         If something goes wrong i need to fix that in my code or manually push an update
-
-   -  Updated the way bot tokens were read in
-      -  They are now read from a .json file instead of global variables on your system!
-      -  You can change the path to your json in the 'main.py' file
-
-   -  Updated *Config* tab in README.md
+   -  Added a requirements.txt file for python libraries
+   -  Some tiny code optimizations
+   - Updated Upcoming updates in README.md
 
 -  Config
       If you want to use this Bot on your Server you can either inivite it by using this link *COMING SOON*,
@@ -70,4 +60,4 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
    -  As i said in the beginning of this README im a single programmer working on this.
       I'll try my best to keep it updated and push new things every month.
 
-   Last update ~ 27.04.2022
+   Last update ~ 02.05.2022
