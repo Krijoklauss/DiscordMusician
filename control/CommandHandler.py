@@ -1,13 +1,17 @@
 import discord
 import asyncio
 from datetime import datetime
+
+from control.model.utility import PHUtility as ph
 from control.GuildHandler import GuildHandler
+
 
 
 # This class handles incoming commands from different guilds
 class CommandHandler:
     def __init__(self, client_name):
         self.guildHandler = GuildHandler(client_name)
+        self.phandler = ph.PHHandler()
 
     # Counts message send in the bind channel
     async def countUp(self, guild):
@@ -95,7 +99,7 @@ class CommandHandler:
             return
 
         # Check if command needs an argument!
-        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang"]
+        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang", "percentage"]
         if len(args) < 1 and needsArguments.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[1], []))
             return
@@ -147,8 +151,12 @@ class CommandHandler:
             status, responseMessage = await musicBot.change_language(args[0])
         elif command == "languages":
             status, responseMessage = await musicBot.show_languages()
+        elif command == "teams":
+            status, responseMessage = await self.phandler.build_teams(msg)
+        elif command == "percentage":
+            status, responseMessage = await self.phandler.set_percent(int(args[0]))
         else:
-            await msg.channel.send("Der Command den Sie eingegeben haben existiert nich! ("+str(command)+")")
+            await msg.channel.send("Der Command den Sie eingegeben haben existiert nicht! ("+str(command)+")")
             return
 
         # Sends error message on False status!

@@ -74,4 +74,5 @@ def __main__():
 
 
 # Run main Function
-__main__()
+if __name__ == '__main__':
+    __main__()
