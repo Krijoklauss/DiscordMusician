@@ -18,7 +18,7 @@ class LanguageHandler:
         try:
             self.languages['languages'][country_code]
             return True
-        except (IndexError, KeyError):
+        except (IndexError, KeyError, ValueError):
             return False
 
     def get_language(self, country_code: str):
@@ -27,5 +27,5 @@ class LanguageHandler:
     def get_all_languages(self):
         temps = []
         for language in self.languages['languages']:
-            temps.append(language)
+            temps.append((language, self.languages['languages'][language]['fullname']))
         return temps

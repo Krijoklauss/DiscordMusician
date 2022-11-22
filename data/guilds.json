@@ -3,12 +3,18 @@
         "prefix": "!",
         "channel_bound": true,
         "bound_channel": "musik",
-        "lang": "ru"
+        "lang": "de"
     },
     "274951121372708877": {
         "prefix": "!",
         "channel_bound": true,
         "bound_channel": "musik",
-        "lang": "de"
+        "lang": "ru"
+    },
+    "186214935867555840": {
+        "prefix": "!",
+        "channel_bound": true,
+        "bound_channel": "bot-commands",
+        "lang": "en"
     }
 }

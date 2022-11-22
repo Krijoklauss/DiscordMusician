@@ -1,7 +1,6 @@
 {
     "languages": {
         "en": {
-            "fullname": "English",
             "commands": {
                 "prefix": {
                     "works": {
@@ -582,25 +581,6 @@
                         }
                     ]
                 },
-                "languages": {
-                    "works": {
-                        "title": "Alle Sprachen",
-                        "description": "Zeigt alle Sprachen an",
-                        "color": [
-                            255,
-                            0,
-                            255
-                        ],
-                        "fields": [
-                            {
-                                "name": "Sprachen",
-                                "value": "%s",
-                                "inline": false
-                            }
-                        ]
-                    },
-                    "fails": []
-                },
                 "basicerrors": {
                     "works": {
                         "title": "Some error",
@@ -682,7 +662,6 @@
             }
         },
         "de": {
-            "fullname": "German",
             "commands": {
                 "prefix": {
                     "works": {
@@ -1388,7 +1367,6 @@
             }
         },
         "af": {
-            "fullname": "Afrikaans",
             "commands": {
                 "prefix": {
                     "works": {
@@ -2094,7 +2072,6 @@
             }
         },
         "ar": {
-            "fullname": "Arabian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -2800,7 +2777,6 @@
             }
         },
         "az": {
-            "fullname": "Azeri",
             "commands": {
                 "prefix": {
                     "works": {
@@ -3506,7 +3482,6 @@
             }
         },
         "be": {
-            "fullname": "Belarusian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -4212,7 +4187,6 @@
             }
         },
         "bg": {
-            "fullname": "Bulgarian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -4918,7 +4892,6 @@
             }
         },
         "ca": {
-            "fullname": "Catalan",
             "commands": {
                 "prefix": {
                     "works": {
@@ -5624,7 +5597,6 @@
             }
         },
         "cs": {
-            "fullname": "Czech",
             "commands": {
                 "prefix": {
                     "works": {
@@ -6330,7 +6302,6 @@
             }
         },
         "cy": {
-            "fullname": "Welsh",
             "commands": {
                 "prefix": {
                     "works": {
@@ -7036,7 +7007,6 @@
             }
         },
         "da": {
-            "fullname": "Danish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -7742,7 +7712,6 @@
             }
         },
         "el": {
-            "fullname": "Greek",
             "commands": {
                 "prefix": {
                     "works": {
@@ -8448,7 +8417,6 @@
             }
         },
         "es": {
-            "fullname": "Spanish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -9154,7 +9122,6 @@
             }
         },
         "et": {
-            "fullname": "Estonian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -9860,7 +9827,6 @@
             }
         },
         "eu": {
-            "fullname": "Basque",
             "commands": {
                 "prefix": {
                     "works": {
@@ -10566,7 +10532,6 @@
             }
         },
         "fa": {
-            "fullname": "Farsi - Persian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -11272,7 +11237,6 @@
             }
         },
         "fi": {
-            "fullname": "Finnish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -11978,7 +11942,6 @@
             }
         },
         "fr": {
-            "fullname": "French",
             "commands": {
                 "prefix": {
                     "works": {
@@ -12684,7 +12647,6 @@
             }
         },
         "ga": {
-            "fullname": "Kwa",
             "commands": {
                 "prefix": {
                     "works": {
@@ -13390,7 +13352,6 @@
             }
         },
         "gl": {
-            "fullname": "Galician",
             "commands": {
                 "prefix": {
                     "works": {
@@ -14096,7 +14057,6 @@
             }
         },
         "hi": {
-            "fullname": "Hindi",
             "commands": {
                 "prefix": {
                     "works": {
@@ -14802,7 +14762,6 @@
             }
         },
         "hr": {
-            "fullname": "Croatian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -15508,7 +15467,6 @@
             }
         },
         "ht": {
-            "fullname": "No clue",
             "commands": {
                 "prefix": {
                     "works": {
@@ -16214,7 +16172,6 @@
             }
         },
         "hu": {
-            "fullname": "Hungarian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -16920,7 +16877,6 @@
             }
         },
         "hy": {
-            "fullname": "Armenian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -17626,7 +17582,6 @@
             }
         },
         "id": {
-            "fullname": "Indonesian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -18332,7 +18287,6 @@
             }
         },
         "is": {
-            "fullname": "Icelandic",
             "commands": {
                 "prefix": {
                     "works": {
@@ -19038,7 +18992,6 @@
             }
         },
         "it": {
-            "fullname": "Italian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -19744,7 +19697,6 @@
             }
         },
         "iw": {
-            "fullname": "Hebrew",
             "commands": {
                 "prefix": {
                     "works": {
@@ -20450,7 +20402,6 @@
             }
         },
         "ja": {
-            "fullname": "Japanese",
             "commands": {
                 "prefix": {
                     "works": {
@@ -21156,7 +21107,6 @@
             }
         },
         "ka": {
-            "fullname": "Georgian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -21862,7 +21812,6 @@
             }
         },
         "ko": {
-            "fullname": "Korean",
             "commands": {
                 "prefix": {
                     "works": {
@@ -22568,7 +22517,6 @@
             }
         },
         "lt": {
-            "fullname": "Lithuanian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -23274,7 +23222,6 @@
             }
         },
         "lv": {
-            "fullname": "Latvian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -23980,7 +23927,6 @@
             }
         },
         "mk": {
-            "fullname": "FYRO Macedonia",
             "commands": {
                 "prefix": {
                     "works": {
@@ -24686,7 +24632,6 @@
             }
         },
         "ms": {
-            "fullname": "Malay",
             "commands": {
                 "prefix": {
                     "works": {
@@ -25392,7 +25337,6 @@
             }
         },
         "mt": {
-            "fullname": "Maltese",
             "commands": {
                 "prefix": {
                     "works": {
@@ -26098,7 +26042,6 @@
             }
         },
         "nl": {
-            "fullname": "Dutch",
             "commands": {
                 "prefix": {
                     "works": {
@@ -26804,7 +26747,6 @@
             }
         },
         "no": {
-            "fullname": "Norwegian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -27510,7 +27452,6 @@
             }
         },
         "pl": {
-            "fullname": "Polish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -28216,7 +28157,6 @@
             }
         },
         "pt": {
-            "fullname": "Portugese",
             "commands": {
                 "prefix": {
                     "works": {
@@ -28922,7 +28862,6 @@
             }
         },
         "ro": {
-            "fullname": "Romanian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -29628,7 +29567,6 @@
             }
         },
         "ru": {
-            "fullname": "Russian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -30334,7 +30272,6 @@
             }
         },
         "sk": {
-            "fullname": "Slovak",
             "commands": {
                 "prefix": {
                     "works": {
@@ -31040,7 +30977,6 @@
             }
         },
         "sl": {
-            "fullname": "Slovenian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -31746,7 +31682,6 @@
             }
         },
         "sq": {
-            "fullname": "Albanian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -32452,7 +32387,6 @@
             }
         },
         "sr": {
-            "fullname": "Serbian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -33158,7 +33092,6 @@
             }
         },
         "sv": {
-            "fullname": "Swedish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -33864,7 +33797,6 @@
             }
         },
         "sw": {
-            "fullname": "Swahili",
             "commands": {
                 "prefix": {
                     "works": {
@@ -34570,7 +34502,6 @@
             }
         },
         "th": {
-            "fullname": "Thai",
             "commands": {
                 "prefix": {
                     "works": {
@@ -35276,7 +35207,6 @@
             }
         },
         "tl": {
-            "fullname": "Tagalog",
             "commands": {
                 "prefix": {
                     "works": {
@@ -35982,7 +35912,6 @@
             }
         },
         "tr": {
-            "fullname": "Turkish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -36688,7 +36617,6 @@
             }
         },
         "uk": {
-            "fullname": "Ukrainian",
             "commands": {
                 "prefix": {
                     "works": {
@@ -37394,7 +37322,6 @@
             }
         },
         "ur": {
-            "fullname": "Urdu",
             "commands": {
                 "prefix": {
                     "works": {
@@ -38100,7 +38027,6 @@
             }
         },
         "vi": {
-            "fullname": "Vietnamese",
             "commands": {
                 "prefix": {
                     "works": {
@@ -38806,7 +38732,6 @@
             }
         },
         "yi": {
-            "fullname": "Yiddish",
             "commands": {
                 "prefix": {
                     "works": {
@@ -39512,7 +39437,6 @@
             }
         },
         "zh-CN": {
-            "fullname": "Chinese - China",
             "commands": {
                 "prefix": {
                     "works": {
@@ -40218,7 +40142,6 @@
             }
         },
         "zh-TW": {
-            "fullname": "Chinese - Taiwan",
             "commands": {
                 "prefix": {
                     "works": {

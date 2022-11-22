@@ -1,7 +1,6 @@
 import math
 import random
 import discord
-from pandas import array
 
 
 class PHHandler():

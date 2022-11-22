@@ -50,19 +50,6 @@ class CommandHandler:
         musicBot = self.guildHandler.get_MusicBot(guild.id)
         musicBot.guild = guild
 
-        # Sets the current language of the Bot to respond in the correct lang
-        language = musicBot.language
-
-        # The first thing we check is the last command that has been executed!
-        difference = 999999
-        lastCommand = self.guildHandler.get_Last_Command_Time(guild.id)
-        if lastCommand is not None:
-            cTime = datetime.now()
-            difference = (cTime - lastCommand).total_seconds()
-
-        # Updates the last command executed timer
-        self.guildHandler.set_Last_Command_Time(guild.id)
-        
         # Checking for correct channel
         if musicBot.is_bound:
             if channel != musicBot.bound_channel:
@@ -88,18 +75,26 @@ class CommandHandler:
         except IndexError:
             print("No arguments provided!")
 
+        difference = 999999
+        lastCommand = self.guildHandler.get_Last_Command_Time(guild.id)
+        if lastCommand is not None:
+            cTime = datetime.now()
+            difference = (cTime - lastCommand).total_seconds()
+
+        # Updates the last command executed timer
+        self.guildHandler.set_Last_Command_Time(guild.id)
 
         # Getting my current language to send valid bot messages
         myLanguage = musicBot.language['commands']['basicerrors']['fails']
 
         # Checking if too many arguments are provided!
-        argsExceptions = ["nick", "play"]
+        argsExceptions = ["nick", "play", "say"]
         if len(args) > 1 and not argsExceptions.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[0], []))
             return
 
         # Check if command needs an argument!
-        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang", "percentage"]
+        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang", "percentage", "say"]
         if len(args) < 1 and needsArguments.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[1], []))
             return
@@ -151,6 +146,8 @@ class CommandHandler:
             status, responseMessage = await musicBot.change_language(args[0])
         elif command == "languages":
             status, responseMessage = await musicBot.show_languages()
+        elif command == "say":
+            status, responseMessage = await musicBot.walky_talky(guild, msg.author.name, args)
         elif command == "teams":
             status, responseMessage = await self.phandler.build_teams(msg)
         elif command == "percentage":

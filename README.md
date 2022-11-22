@@ -25,6 +25,7 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
       -  seek (Currently broken!)
       -  clear
       -  cleaner
+      -  say
       -  help
       -  lang
       -  languages
@@ -36,7 +37,8 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
    -  Working on the seek functions which is currently locked due to very slow performance
 
 -  Latest updates
-   - Added the command 'teams', which will split up the members of your current voicechannel into two parts. The percentage of how they are split can be set with 'percentage VALUE'. One half will be randomly moved to another voicechannel (I made it for a game called Perfect Heist 2, but you can obviously use it for anything to create some teams)
+   - Added new command "say" which creates an mp3 from text and says whatever it is
+     in the language currently set
 
 -  Config
       If you want to use this Bot on your Server you can either inivite it by using this link *COMING SOON*,

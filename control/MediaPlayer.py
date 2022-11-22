@@ -1,5 +1,11 @@
+import os
 import discord
 import asyncio
+from mutagen.mp3 import MP3
+from gtts import gTTS
+from gtts.tts import gTTSError
+from gtts.lang import tts_langs
+from datetime import datetime
 from control.model.utility.YoutubeUtils import YoutubeUtils
 from control.model.utility.Song import Song
 from control.LanguageHandler import LanguageHandler
@@ -59,7 +65,7 @@ class MediaPlayer:
             try:
                 replacement = replacements[i]
                 msg.add_field(name=field['name'], value=field['value'] % replacement, inline=field['inline'])
-            except (IndexError, KeyError):
+            except (IndexError, KeyError, ValueError):
                 msg.add_field(name=field['name'], value=field['value'], inline=field['inline'])
         return msg
 
@@ -72,8 +78,8 @@ class MediaPlayer:
     async def show_help_message(self):
         myLanguage = self.language['commands']['help']
 
-        commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help", "lang", "languages"]
-        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", None, None, None, None, "*TIME_TO_SKIP*", None, None, None, None, None, "*COUNTRY_CODE*", None]
+        commands = ["prefix", "bind", "nick", "play", "stop", "skip", "pause", "resume", "seek", "np", "queue", "clear", "cleaner", "help", "lang", "languages", "say"]
+        usages = ["*NEW_PREFIX*", "*NEW_TEXTCHANNEL*", "*NEW_NICKNAME*", "*YOUTUBE_LINK*, *SPOTIFY_LINK*, *SOME_WORDS_TO_SEARCH*", None, None, None, None, "*TIME_TO_SKIP*", None, None, None, None, None, "*COUNTRY_CODE*", None, "*TEXT*"]
 
         myEmbed = await self.create_embed_message(myLanguage['works'], [])
         for i, command in enumerate(commands):
@@ -422,8 +428,62 @@ class MediaPlayer:
 
         replacement = ""
         for i, language in enumerate(languageHandler.get_all_languages()):
-            replacement += str(i+1) + ". " + str(language) + "\n"
+            replacement += str(i+1) + ". " + str(language[0]) + "\t| " + str(language[1]) + "\n"
 
         myLanguage = self.language['commands']['languages']
         await self.send_embed(await self.create_embed_message(myLanguage['works'], [replacement]))
+        return True, None
+
+    # This function will only work when no song is playing and the bot is connected to a voicechannel!
+    async def walky_talky(self, guild:discord.guild, sender: str, arguments: list):
+        myLanguage = self.language['commands']['added_to_queue']
+        voiceChannel = None
+        for channel in guild.channels:
+            found = False
+            if type(channel) == discord.VoiceChannel:
+                for member in channel.members:
+                    if member.name == sender:
+                        voiceChannel = channel
+                        found = True
+                        break
+                if found: 
+                    break
+
+        if voiceChannel is None:
+            return False, await self.create_embed_message(myLanguage['fails'][0], [])
+
+        # Create translation text
+        text_to_be_converted = ""
+        for s in arguments:
+            text_to_be_converted += str(s) + " "
+
+        # Create an mp3 file to be played
+        audio_file = str(datetime.now()).replace(" ", "_").replace(":", "_").replace(".", "_") + ".mp3";
+        path_to_file = "./data/speeches/" + audio_file
+
+        language = self.country_code
+
+        # Check if language is supported
+        if language not in tts_langs():
+            return True, None
+
+        try:
+            speech = gTTS(text=text_to_be_converted, lang=language, slow=False)
+            speech.save(path_to_file)
+        except(gTTSError):
+            os.remove(path_to_file)
+            return True, None
+
+        if self.voice_connection is None or not self.voice_connection.is_connected():
+                self.voice_connection = await self.connect(voiceChannel)
+
+        if not self.voice_connection.is_playing() and not self.voice_connection.is_paused():
+            mpeg = discord.FFmpegPCMAudio(path_to_file)
+            if mpeg is not None:
+                try:
+                    await self.voice_connection.play(mpeg)
+                except:
+                    pass
+            await asyncio.sleep(MP3(path_to_file).info.length + 1)
+            os.remove(path_to_file)
         return True, None
