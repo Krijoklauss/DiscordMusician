@@ -39,6 +39,7 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
 -  Latest updates
    - Added new command "say" which creates an mp3 from text and says whatever it is
      in the language currently set
+   - Added full language names to the command "languages"
 
 -  Config
       If you want to use this Bot on your Server you can either inivite it by using this link *COMING SOON*,
