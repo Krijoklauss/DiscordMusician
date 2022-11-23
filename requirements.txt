@@ -12,3 +12,5 @@ youtube-search-python
 
 # Utiliys
 pynacl
+mutagen
+gtts
