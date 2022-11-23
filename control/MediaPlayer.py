@@ -185,7 +185,7 @@ class MediaPlayer:
             except (IndexError, ValueError, KeyError):
                 return False, await self.create_embed_message(myLanguage['fails'][3], [])
         else:
-            newSong = await self.youtube.getSong(args)
+            newSong = self.youtube.getSong(args)
 
         # Returns newSong if it's a tuple object, because that means something in getSong() went wrong!
         if type(newSong) == tuple:

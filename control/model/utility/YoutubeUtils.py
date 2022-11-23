@@ -12,9 +12,9 @@ class YoutubeUtils:
         self.spotify = SpotifyUtils(self)
         pass
 
-    async def getSong(self, args):
+    def getSong(self, args):
         if str(args[0]).__contains__("https://open.spotify.com/track/"):
-            return await self.spotify.spotify_link_to_song(args[0])
+            return self.spotify.spotify_link_to_song(args[0])
         elif str(args[0]).__contains__("https://www.youtube.com/watch?v="):
             song_link = args[0]
             video = Video.get(song_link)
