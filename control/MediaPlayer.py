@@ -191,7 +191,7 @@ class MediaPlayer:
         if type(newSong) == tuple:
             return False, await self.create_embed_message(myLanguage['fails'][newSong[0]], newSong[1])
         
-        if newSong is not None and type(newSong) == Song:
+        if newSong is not None and (type(newSong) == Song or type(newSong) == list):
             self.queue.append(newSong)
             
         if self.voice_connection.is_playing() or self.voice_connection.is_paused():
@@ -212,6 +212,10 @@ class MediaPlayer:
             self.current_progress = 0
 
             currentSong = self.queue.pop(0)
+
+            if type(currentSong) == list:
+                currentSong = self.youtube.getSong(currentSong)
+
             if currentSong.player_link is None:
                 currentSong.player_link = await self.youtube.get_player_link(currentSong.youtube_link)
 
@@ -386,7 +390,10 @@ class MediaPlayer:
             for i in range(_min, _max):
                 try:
                     song = self.queue[i]
-                    message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
+                    if type(song) == Song:
+                        message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
+                    elif type(song) == list:
+                        message += str(i+1) + ". "+str(song[0]) + ", Aufrufe: Unknown :(\n"
                 except (IndexError, KeyError):
                     break
             message += "\nDas Maximum sind 10 Songs pro Seite!"
