@@ -1,14 +1,15 @@
 from control.model.utility.YoutubeUtils import YoutubeUtils
+from control.model.utility.SpotifyUtils import SpotifyUtils
 
-youtube = YoutubeUtils()
+
 
 
 class Playlist:
     def __init__(self, playlist_link):
-        global youtube
-
+        self.youtube = YoutubeUtils()
         if playlist_link.__contains__("youtube"):
-            self.songs = youtube.getPlaylistSongs(playlist_link)
+            self.songs = self.youtube.getPlaylistSongs(playlist_link)
+        elif playlist_link.__contains__("spotify"):
+            self.songs = self.youtube.spotify.spotify_playlist_to_songs(playlist_link)
         else:
-            print("Spotify songs")
-            self.songs = []
+            self.songs = [];

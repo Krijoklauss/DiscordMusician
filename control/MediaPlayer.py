@@ -30,6 +30,8 @@ class MediaPlayer:
         self.is_bound = bounded
         self.in_queue_loop = False
         self.disconnecting = False
+        self.disconnecting_task = None
+        self.disconnecting_message = None
         self.bound_channel = chan
         self.voice_connection = None
         self.song_looped = False
@@ -185,13 +187,13 @@ class MediaPlayer:
             except (IndexError, ValueError, KeyError):
                 return False, await self.create_embed_message(myLanguage['fails'][3], [])
         else:
-            newSong = await self.youtube.getSong(args)
+            newSong = self.youtube.getSong(args)
 
         # Returns newSong if it's a tuple object, because that means something in getSong() went wrong!
         if type(newSong) == tuple:
             return False, await self.create_embed_message(myLanguage['fails'][newSong[0]], newSong[1])
         
-        if newSong is not None and type(newSong) == Song:
+        if newSong is not None and (type(newSong) == Song or type(newSong) == list):
             self.queue.append(newSong)
             
         if self.voice_connection.is_playing() or self.voice_connection.is_paused():
@@ -212,6 +214,10 @@ class MediaPlayer:
             self.current_progress = 0
 
             currentSong = self.queue.pop(0)
+
+            if type(currentSong) == list:
+                currentSong = self.youtube.getSong(currentSong)
+
             if currentSong.player_link is None:
                 currentSong.player_link = await self.youtube.get_player_link(currentSong.youtube_link)
 
@@ -340,20 +346,20 @@ class MediaPlayer:
         if self.voice_connection is None:
             await self.voice_connection.disconnect(force=True)
 
-        disconnectingMessage = await self.send_embed(await self.create_embed_message(self.language['disconnecting'], [str(delay)]))
+        self.disconnecting_message = await self.send_embed(await self.create_embed_message(self.language['disconnecting'], [str(delay)]))
         for i in range(delay):
             if self.voice_connection is not None and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
                 self.disconnecting = False
-                await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+                await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
                 return
 
             if i % 5 == 0 or i > (delay - 6):
-                await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], [str(delay-i)]))
+                await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], [str(delay-i)]))
             await asyncio.sleep(1)
 
         if self.voice_connection.is_connected() and not self.voice_connection.is_playing() and not self.voice_connection.is_paused():
             await self.voice_connection.disconnect(force=True)
-            await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+            await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
             await self.send_embed(await self.create_embed_message(self.language['disconnecting']['disconnected'], []))
             self.disconnecting = False
 
@@ -386,7 +392,10 @@ class MediaPlayer:
             for i in range(_min, _max):
                 try:
                     song = self.queue[i]
-                    message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
+                    if type(song) == Song:
+                        message += str(i+1) + ". "+str(song.song_title) + ", Aufrufe: "+str(song.viewCount)+"\n"
+                    elif type(song) == list:
+                        message += str(i+1) + ". "+str(song[0]) + ", Aufrufe: Unknown :(\n"
                 except (IndexError, KeyError):
                     break
             message += "\nDas Maximum sind 10 Songs pro Seite!"
@@ -436,6 +445,13 @@ class MediaPlayer:
 
     # This function will only work when no song is playing and the bot is connected to a voicechannel!
     async def walky_talky(self, guild:discord.guild, sender: str, arguments: list):
+
+        if self.disconnecting and self.disconnecting_task is not None:
+            self.disconnecting_task.cancel()
+            await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+            self.disconnecting_task = None
+            self.disconnecting = False
+
         myLanguage = self.language['commands']['added_to_queue']
         voiceChannel = None
         for channel in guild.channels:
@@ -486,4 +502,6 @@ class MediaPlayer:
                     pass
             await asyncio.sleep(MP3(path_to_file).info.length + 1)
             os.remove(path_to_file)
+            self.disconnecting_task = asyncio.ensure_future(self.disconnect(delay=60))
+            
         return True, None
