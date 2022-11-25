@@ -11,10 +11,8 @@ from control.model.utility.Song import Song
 from control.LanguageHandler import LanguageHandler
 from control.model.utility.Playlist import Playlist
 
-
 languageHandler = LanguageHandler()
 possible_prefixes = ["!", "?", "-", ",", ".", "*", "'", "#", "=", "&", "$", "%", "§", "卐"]
-
 
 class MediaPlayer:
     def __init__(self, identity, client_name, pref="!", bounded=False, chan="", lang="en"):

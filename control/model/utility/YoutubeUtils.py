@@ -5,7 +5,6 @@ from youtubesearchpython import VideosSearch
 from youtubesearchpython import StreamURLFetcher
 from control.model.utility.SpotifyUtils import SpotifyUtils
 
-
 class YoutubeUtils:
     def __init__(self):
         self.url_fetcher = StreamURLFetcher()
