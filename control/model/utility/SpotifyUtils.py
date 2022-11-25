@@ -30,6 +30,8 @@ class SpotifyUtils:
 
         tracks = []
         for i, track in enumerate(playlist['tracks']['items'], start=1):
-            print("Done with track "+ str(i))
-            tracks.append(self.spotify_link_to_song(track['track']['external_urls']['spotify']))
+            meta = track['track']
+            song_name = str(meta['name'])
+            artist = str(meta['artists'][0]['name'])
+            tracks.append([song_name, artist])
         return tracks
