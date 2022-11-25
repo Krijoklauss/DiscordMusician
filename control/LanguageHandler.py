@@ -1,6 +1,5 @@
 import json
 
-
 class LanguageHandler:
     def __init__(self):
         self.languages = self.loadLanguages()
