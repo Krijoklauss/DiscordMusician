@@ -30,6 +30,8 @@ class MediaPlayer:
         self.is_bound = bounded
         self.in_queue_loop = False
         self.disconnecting = False
+        self.disconnecting_task = None
+        self.disconnecting_message = None
         self.bound_channel = chan
         self.voice_connection = None
         self.song_looped = False
@@ -340,20 +342,20 @@ class MediaPlayer:
         if self.voice_connection is None:
             await self.voice_connection.disconnect(force=True)
 
-        disconnectingMessage = await self.send_embed(await self.create_embed_message(self.language['disconnecting'], [str(delay)]))
+        self.disconnecting_message = await self.send_embed(await self.create_embed_message(self.language['disconnecting'], [str(delay)]))
         for i in range(delay):
             if self.voice_connection is not None and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
                 self.disconnecting = False
-                await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+                await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
                 return
 
             if i % 5 == 0 or i > (delay - 6):
-                await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], [str(delay-i)]))
+                await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], [str(delay-i)]))
             await asyncio.sleep(1)
 
         if self.voice_connection.is_connected() and not self.voice_connection.is_playing() and not self.voice_connection.is_paused():
             await self.voice_connection.disconnect(force=True)
-            await disconnectingMessage.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+            await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
             await self.send_embed(await self.create_embed_message(self.language['disconnecting']['disconnected'], []))
             self.disconnecting = False
 
@@ -436,6 +438,13 @@ class MediaPlayer:
 
     # This function will only work when no song is playing and the bot is connected to a voicechannel!
     async def walky_talky(self, guild:discord.guild, sender: str, arguments: list):
+
+        if self.disconnecting and self.disconnecting_task is not None:
+            self.disconnecting_task.cancel()
+            await self.disconnecting_message.edit(embed=await self.create_embed_message(self.language['disconnecting'], ["0"]))
+            self.disconnecting_task = None
+            self.disconnecting = False
+
         myLanguage = self.language['commands']['added_to_queue']
         voiceChannel = None
         for channel in guild.channels:
@@ -486,4 +495,6 @@ class MediaPlayer:
                     pass
             await asyncio.sleep(MP3(path_to_file).info.length + 1)
             os.remove(path_to_file)
+            self.disconnecting_task = asyncio.ensure_future(self.disconnect(delay=60))
+            
         return True, None
