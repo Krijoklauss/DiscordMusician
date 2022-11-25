@@ -3,7 +3,6 @@ import spotipy
 from control.model.utility.Song import Song
 from spotipy import SpotifyClientCredentials
 
-
 class SpotifyUtils:
     def __init__(self, utils):
         self.youtube = utils

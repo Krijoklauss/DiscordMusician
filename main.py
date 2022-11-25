@@ -3,7 +3,6 @@ import json
 import discord
 from control.CommandHandler import CommandHandler
 
-
 # Declaring required Intents
 inten = discord.Intents.default()
 inten.members = True
@@ -71,7 +70,6 @@ def __main__():
 
     print("Saving current guild settings!")
     commandHandler.guildHandler.saveGuilds()
-
 
 # Run main Function
 if __name__ == '__main__':
