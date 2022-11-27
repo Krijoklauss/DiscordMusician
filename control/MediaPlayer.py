@@ -257,6 +257,11 @@ class MediaPlayer:
                 currentSong.player_link = None
                 currentSong.audio_source = None
                 self.queue.append(currentSong)
+                
+            if self.song_looped:
+                currentSong.player_link = None
+                currentSong.audio_source = None
+                self.queue.insert(0, currentSong)
 
         self.in_queue_loop = False
         await self.stop()
@@ -546,4 +551,12 @@ class MediaPlayer:
                 self.queue_looped = False
             else: 
                 self.queue_looped = True
+        return True, None
+
+    async def loop_song(self):
+        if self.voice_connection is not None and self.voice_connection.is_connected and self.voice_connection.is_playing:
+            if self.song_looped:
+                self.song_looped = False
+            else:
+                self.song_looped = True
         return True, None
