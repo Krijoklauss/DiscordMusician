@@ -8,7 +8,7 @@ inten = discord.Intents.default()
 inten.members = True
 
 # Declaring bot type
-_type = "MUSIC_BOT"
+_type = "MUSIC_BOT_SNAPSHOT"
 
 # Loading Bot token
 token = None
