@@ -124,6 +124,8 @@ class CommandHandler:
             status, responseMessage = await musicBot.loop_song()
         elif command == "move":
             status, responseMessage = await musicBot.move_song(args)
+        elif command == "queueloop":
+            status, responseMessage = await musicBot.loop_current_queue()
         elif command == "seek":
             status, responseMessage = await musicBot.seek(args[0])
         elif command == "shuffle":
