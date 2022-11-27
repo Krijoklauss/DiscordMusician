@@ -3,7 +3,6 @@ import discord
 import asyncio
 from random import shuffle as list_shuffle
 from gtts import gTTS
-from random import randrange
 from mutagen.mp3 import MP3
 from gtts.tts import gTTSError
 from gtts.lang import tts_langs
@@ -511,4 +510,26 @@ class MediaPlayer:
             list_shuffle(self.queue)
         else:
             print("Queue not long enough for shuffle!")
+
+    async def move_song(self, args: int):
+        if len(args) == 1:
+            try:
+                old_index = int(args[0]) - 1
+                old_element = self.queue[old_index]
+            except (IndexError, ValueError, TypeError):
+                return True, None
+                
+            self.queue.remove(old_element)
+            self.queue.insert(0, old_element)
+        else:
+            try:
+                old_index = int(args[0]) - 1
+                new_index = int(args[1]) - 1
+                first_element = self.queue[old_index]
+            except (IndexError, ValueError, TypeError):
+                return True, None
+
+            self.queue[old_index] = self.queue[new_index]
+            self.queue[new_index] = first_element
+
         return True, None

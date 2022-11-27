@@ -85,13 +85,13 @@ class CommandHandler:
         myLanguage = musicBot.language['commands']['basicerrors']['fails']
 
         # Checking if too many arguments are provided!
-        argsExceptions = ["nick", "play", "say"]
+        argsExceptions = ["nick", "play", "say", "move"]
         if len(args) > 1 and not argsExceptions.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[0], []))
             return
 
         # Check if command needs an argument!
-        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang", "percentage", "say"]
+        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang", "percentage", "say", "move"]
         if len(args) < 1 and needsArguments.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[1], []))
             return
@@ -120,6 +120,8 @@ class CommandHandler:
             status, responseMessage = await musicBot.pause()
         elif command == "resume":
             status, responseMessage = await musicBot.resume()
+        elif command == "move":
+            status, responseMessage = await musicBot.move_song(args)
         elif command == "seek":
             status, responseMessage = await musicBot.seek(args[0])
         elif command == "shuffle":
