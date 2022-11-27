@@ -1,8 +1,10 @@
 import os
 import discord
 import asyncio
-from mutagen.mp3 import MP3
+from random import shuffle as list_shuffle
 from gtts import gTTS
+from random import randrange
+from mutagen.mp3 import MP3
 from gtts.tts import gTTSError
 from gtts.lang import tts_langs
 from datetime import datetime
@@ -502,4 +504,11 @@ class MediaPlayer:
             os.remove(path_to_file)
             self.disconnecting_task = asyncio.ensure_future(self.disconnect(delay=60))
             
+        return True, None
+    
+    async def shuffle(self):
+        if len(self.queue) > 1:
+            list_shuffle(self.queue)
+        else:
+            print("Queue not long enough for shuffle!")
         return True, None
