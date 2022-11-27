@@ -510,6 +510,7 @@ class MediaPlayer:
             list_shuffle(self.queue)
         else:
             print("Queue not long enough for shuffle!")
+        return True, None
 
     async def move_song(self, args: int):
         if len(args) == 1:
