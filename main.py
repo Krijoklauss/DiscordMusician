@@ -8,7 +8,7 @@ inten = discord.Intents.default()
 inten.members = True
 
 # Declaring bot type
-_type = "MUSIC_BOT"
+_type = "MUSIC_BOT_SNAPSHOT"
 
 # Loading Bot token
 token = None
@@ -57,6 +57,15 @@ async def on_message(message: discord.message):
         if not client_name == str(message.author.name):
             # Handles incoming commands
             await commandHandler.handle(message)
+
+# Event which is called when a member joins a guild
+@client.event
+async def on_member_join(member: discord.Member):
+    if type(member) == discord.Member:
+        for channel in member.guild.channels:
+            if type(channel) == discord.TextChannel:
+                await channel.send(f"""Willkommen {member.mention} du Hurensohn!""")
+                break
 
 # Run the Client and create new MusicBot instance
 def __main__():

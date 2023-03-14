@@ -85,13 +85,13 @@ class CommandHandler:
         myLanguage = musicBot.language['commands']['basicerrors']['fails']
 
         # Checking if too many arguments are provided!
-        argsExceptions = ["nick", "play", "say", "move"]
+        argsExceptions = ["nick", "play", "p", "say", "move"]
         if len(args) > 1 and not argsExceptions.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[0], []))
             return
 
         # Check if command needs an argument!
-        needsArguments = ["prefix", "bind", "nick", "play", "seek", "lang", "percentage", "say", "move"]
+        needsArguments = ["prefix", "bind", "nick", "play", "p", "seek", "lang", "percentage", "say", "move"]
         if len(args) < 1 and needsArguments.__contains__(command):
             await msg.channel.send(embed=await self.create_embed_message(myLanguage[1], []))
             return
@@ -107,7 +107,7 @@ class CommandHandler:
             status, responseMessage = await musicBot.set_bind(guild, args[0])
         elif command == "nick":
             status, responseMessage = await musicBot.set_nick(guild, args)
-        elif command == "play":
+        elif command == "play" or command == "p":
             # Sleeps the thread for a specific time, depends on the execution timeout (This sleep timer is important to stop simultanious execution of the play function!)
             if difference <= 0.5:
                 await asyncio.sleep(0.5)
@@ -132,7 +132,7 @@ class CommandHandler:
             status, responseMessage = await musicBot.shuffle()
         elif command == "np":
             status, responseMessage = await musicBot.show_current_song()
-        elif command == "queue":
+        elif command == "queue" or command == "q":
             if len(args) > 0:
                 try:
                     p = int(args[0])
