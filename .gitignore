@@ -1,6 +1,7 @@
 # Files
 .cache
 *.pyc
+*.sql
 tokens.json
 
 # Folders
