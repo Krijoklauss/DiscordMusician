@@ -1,4 +1,6 @@
 .cache
 *.pyc
 _pycache_/
+database/
+.idea/
 tokens.json
