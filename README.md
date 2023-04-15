@@ -14,13 +14,13 @@ This is a simple MusicBot i wrote in Python, all features and upcomming updates 
       -  prefix
       -  nick
       -  bind
-      -  play
+      -  play / p
       -  pause
       -  stop
       -  resume
-      -  loop (Coming soon!)
-      -  loopqueue (Coming soon!)
-      -  queue
+      -  loop
+      -  loopqueue
+      -  queue / q
       -  seek (Currently broken!)
       -  clear
       -  cleaner

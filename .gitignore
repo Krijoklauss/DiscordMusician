@@ -1,4 +1,8 @@
+# Files
 .cache
 *.pyc
-_pycache_/
 tokens.json
+
+# Folders
+_pycache_/
+.idea/
