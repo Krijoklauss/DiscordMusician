@@ -21,7 +21,7 @@ COMMANDS = [
     {'name': 'q',           'function': 'show_queue',           'parameters': True, 'min': 0, 'max': 1},
     {'name': 'seek',        'function': 'seek',                 'parameters': True,  'min': 1, 'max': 1},
     {'name': 'clear',       'function': 'clear',                'parameters': False, 'min': 0, 'max': 0},
-    {'name': 'say',         'function': 'say',                  'parameters': True,  'min': 1, 'max': 3},
+    {'name': 'say',         'function': 'say',                  'parameters': True,  'min': 1, 'max': 30},
     {'name': 'cleaner',     'function': 'clean_channel',        'parameters': False, 'min': 0, 'max': 0},
     {'name': 'help',        'function': 'show_help',            'parameters': False, 'min': 1, 'max': 1},
     {'name': 'lang',        'function': 'set_language',         'parameters': True,  'min': 1, 'max': 1},

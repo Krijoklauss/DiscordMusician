@@ -238,7 +238,8 @@ class Musician:
             if parameter[0] == '-l':
                 try:
                     lang_code = parameter[1]
-                    tts_string = parameter[2]
+                    for i in range(2, len(parameter)-1):
+                        tts_string += parameter[i]
                 except IndexError:
                     return create_discord_response(self.language_id, "say", "say_failed_parameter")
             else:
