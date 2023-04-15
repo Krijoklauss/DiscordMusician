@@ -4,13 +4,19 @@ discord
 # Spotify data receiver
 spotipy
 
-# Search for youtube videos and playlists
+# Search for YouTube videos and playlists
 ytdl
 yt-dlp
 youtube_dl
 youtube-search-python
 
-# Utiliys
+# Utilities
 pynacl
 mutagen
 gtts
+
+# Database
+mysql-connector-python
+
+# Keyboard Listener
+pynput

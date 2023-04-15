@@ -1,85 +1,133 @@
 # Imports
-import json
+import sys
 import discord
-from control.CommandHandler import CommandHandler
+import control.MusicHandler as MusicHandler
+from pynput import keyboard
+from control.model.Command import Command
+from control.DatabaseConnection import DatabaseConnection
+from control.model.utility.SongFetcher import init_apis
+from control.model.utility.Responses import init_responses
+from control.model.utility.Responses import create_discord_response
 
-# Declaring required Intents
-inten = discord.Intents.default()
-inten.members = True
+# Disable cache
+sys.dont_write_bytecode = True
 
-# Declaring bot type
-_type = "MUSIC_BOT_SNAPSHOT"
+# Predefined values
+MOTD = "Launching Musician V2!"
+HOST_TYPE = "MUSIC_BOT_SNAPSHOT"
+database = DatabaseConnection()
+TOKEN = database.get_token(HOST_TYPE)
 
-# Loading Bot token
-token = None
-with open("../DiscordTokens/tokens.json", "r", encoding="utf-8") as infile:
-    token = json.loads(infile.read())['tokens'][_type]
+# Initialize APIs
+init_apis(HOST_TYPE, database)
 
-# Initiating new discord.Client()
-client = discord.Client(intents=inten)
+# Init responses
+init_responses(database)
 
-commandHandler = None
-client_name = None
+# Discord client
+intents = discord.Intents.all()
+client = discord.Client(intents=intents)
+client_name = "None"
 
-# Event which is called after the bot is ready for production
+
+# On ready Event
 @client.event
 async def on_ready():
-    global client, client_name, commandHandler
+    global database, client, client_name, MOTD
 
-    # Local output for dev to see if the Bot is ready! (No need to spam all guild channels on every restart!)
-    print("Bot is ready!")
-
-    # Init values with None
+    # Set client name
     client_name = client.user.name
 
-    # Init new CommandHandler class
-    commandHandler = CommandHandler(client_name)
+    # Set client status
+    motd = discord.Game(MOTD)
+    await client.change_presence(status=discord.Status.online, activity=motd)
 
-    for guild in client.guilds:
-        for channel in guild.channels:
-            if type(channel) == discord.TextChannel:
-                # await channel.send("Ich bin wieder online :-)")
-                break
+    # Loading Musicians
+    MusicHandler.musicians = database.get_musicians(client.user.name)
 
-# Event which is called on every message sent in a text channel
+    # Init nicknames for all bots
+    for musician in MusicHandler.musicians:
+        guild = client.get_guild(int(musician.guild_id))
+        await musician.set_nick(guild, musician.nickname, "")
+    print("Bot is ready!")
+
+
 @client.event
 async def on_message(message: discord.message):
-    global commandHandler
+    global database, client_name
 
-    sender = message.author
-    # Goes through if type == discord.Member
-    if type(sender) == discord.Member:
-        
-        # Counts messages send
-        await commandHandler.countUp(message.guild)
+    # Common values
+    guild = message.guild
+    guild_id = guild.id
+    guild_name = guild.name
+    author = message.author.name
+    channel = message.channel
 
-        # Goes through if message wasnt sent by a bot
-        if not client_name == str(message.author.name):
-            # Handles incoming commands
-            await commandHandler.handle(message)
+    if author == client_name:
+        return
 
-# Event which is called when a member joins a guild
-@client.event
-async def on_member_join(member: discord.Member):
-    if type(member) == discord.Member:
-        for channel in member.guild.channels:
-            if type(channel) == discord.TextChannel:
-                await channel.send(f"""Willkommen {member.mention} du Hurensohn!""")
-                break
+    # Get musician for the guild
+    musician = MusicHandler.get_musician(guild_id)
 
-# Run the Client and create new MusicBot instance
-def __main__():
-    global commandHandler
+    if musician is None:
+        database.create_musician(guild_id, guild_name, "Musician V2 ~ !prefix", "!", "", 0)
+        musician = MusicHandler.create_musician(guild_id, guild_name, client_name)
+        # Init new nickname for new musician
+        await musician.set_nick(guild, [musician.nickname], "")
 
-    # Run the Client and except on KeyboardInterrupt
+    # Create new command
+    command = Command(musician, message)
+
+    if musician.bound_channel == "" and command.command != "bind":
+        await message.delete()
+        response = create_discord_response(musician.language_id, "None", "no_channel_bound")
+    elif musician.bound_channel == "" and command.command == "bind":
+        response = await command.execute()
+    elif musician.bound_channel != message.channel.name:
+        response = create_discord_response(musician.language_id, "None", "wrong_channel")
+    else:
+        response = await command.execute()
+
+    if response is None:
+        return
+    elif type(response) == discord.Embed:
+        await channel.send(embed=response)
+    else:
+        await channel.send(response)
+
+
+def on_press(key):
+    if key == keyboard.Key.esc:
+        print("Saving values...")
+        # _close()
+
+
+def _close():
+    # Store musician values
+    database.save_musicians(MusicHandler.musicians)
+    # Close program
+    # os._exit(0)
+
+
+# Main running loop
+def _run():
+    global TOKEN
+
     try:
-        client.run(token)
-    except RuntimeError:
-        pass
+        print("Initializing Bot...")
 
-    print("Saving current guild settings!")
-    commandHandler.guildHandler.saveGuilds()
+        # Create Keyboard listener
+        listener = keyboard.Listener(on_press=on_press)
+        listener.start()
 
-# Run main Function
+        # Run discord client
+        client.run(TOKEN)
+    except:
+        print("Fatal Error!")
+        print("Stopping Musician...")
+        _close()
+
+
+# Check filename
 if __name__ == '__main__':
-    __main__()
+    _run()

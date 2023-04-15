@@ -1,4 +1,9 @@
+# Files
 .cache
 *.pyc
-_pycache_/
+database/Dump.sql
 tokens.json
+
+# Folders
+_pycache_/
+.idea/
