@@ -1,6 +1,6 @@
 import math
 import discord
-import asyncio
+from asyncio import sleep
 from mutagen.mp3 import MP3
 from control.model.utility import Values
 from control.model.utility import SongFetcher
@@ -26,6 +26,8 @@ class Musician:
         self.resuming = False
         self.stopping = False
         self.looping = False
+        self.abort_disconnect = False
+        self.disconnecting = False
         self.queue_looping = False
         self.disconnecting = False
         self.current_song = None
@@ -95,6 +97,9 @@ class Musician:
     async def play(self, guild: discord.guild, parameter: list, author: str) -> discord.Embed or None:
         self.voice_connection = await self.connect(guild, author)
 
+        if self.voice_connection is None:
+            return create_discord_response(self.language_id, "play", "bot_not_connected")
+
         created_queue = SongFetcher.create_queue(parameter)
         if len(created_queue) > 0:
             for song in created_queue:
@@ -103,12 +108,11 @@ class Musician:
         else:
             return create_discord_response(self.language_id, "play", "queue_creation_failed")
 
-        # If already playing don't start a new queue loop
-        if self.voice_connection is None:
-            return create_discord_response(self.language_id, "play", "bot_not_connected")
-
         if self.voice_connection is not None and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
             return None
+
+        if self.disconnecting:
+            self.abort_disconnect = True
 
         # Currently playing song
         while len(self.queue) > 0:
@@ -129,11 +133,13 @@ class Musician:
             # Loop while song is playing
             while self.current_progress <= self.current_song.length:
                 # Await second
-                await asyncio.sleep(1)
+                await sleep(1)
 
                 # disconnect
                 if self.voice_connection is None or not self.voice_connection.is_connected():
                     await self.stop(guild, parameter, author)
+                    await self.set_default_values()
+                    return None
 
                 # stop
                 if self.stopping:
@@ -232,6 +238,9 @@ class Musician:
         self.voice_connection = await self.connect(guild, author)
         if self.voice_connection is not None and not self.voice_connection.is_playing() and not self.voice_connection.is_paused():
 
+            if self.disconnecting:
+                self.abort_disconnect = True
+
             # Read parameter
             tts_string = "Failed"
             lang_code = get_language_data(self.language_id)['country_code']
@@ -252,11 +261,43 @@ class Musician:
                 return create_discord_response(self.language_id, "say", "say_failed_mp3")
             else:
                 self.voice_connection.play(sound_data[0])
-                await asyncio.sleep(MP3(sound_data[1]).info.length + 1)
+                await sleep(MP3(sound_data[1]).info.length + 1)
                 SongFetcher.delete_tss_file(sound_data[1])
                 return create_discord_response(self.language_id, "say", "say_success", values=(str(tts_string)))
         else:
             return create_discord_response(self.language_id, "say", "say_failed_music")
+
+    async def init_disconnect(self, guild: discord.guild) -> None:
+        if self.disconnecting or self.voice_connection is None or not self.voice_connection.is_connected() or self.voice_connection.is_playing() or self.voice_connection.is_playing():
+            return None
+
+        my_message = None
+        wait_until_disconnect = 30
+        for time_over in range(wait_until_disconnect):
+            # Abort disconnect
+            if self.voice_connection is None or not self.voice_connection.is_connected():
+                self.abort_disconnect = False
+                self.disconnecting = False
+                await self.send_to_main_channel(guild, create_discord_response(self.language_id, "disconnect", "abort_disconnect"))
+                return None
+
+            if self.abort_disconnect:
+                self.abort_disconnect = False
+                self.disconnecting = False
+                await self.send_to_main_channel(guild, create_discord_response(self.language_id, "disconnect", "abort_disconnect"))
+                return None
+
+            # Still waiting
+            self.disconnecting = True
+            disconnect_message = create_discord_response(self.language_id, "disconnect", "disconnecting", values=(str(wait_until_disconnect - time_over)))
+
+            if my_message is None:
+                my_message = await self.send_to_main_channel(guild, disconnect_message)
+            elif time_over % 5 == 0 or time_over == 29:
+                await my_message.edit(embed=disconnect_message)
+            await sleep(1)
+        await self.voice_connection.disconnect(force=True)
+        await self.send_to_main_channel(guild, create_discord_response(self.language_id, "disconnect", "disconnected"))
 
     async def show_current_song(self, guild: discord.guild, parameter: list, author: str) -> discord.Embed:
         if self.voice_connection is not None and (self.voice_connection.is_playing() or self.voice_connection.is_paused()):
@@ -341,10 +382,10 @@ class Musician:
             language_string += str(index) + ". "+str(language['full_name'])+", CC: " + str(language['country_code']) + "\n"
         return create_discord_response(self.language_id, "languages", "languages_success", values=(str(language_string)))
 
-    async def send_to_main_channel(self, guild: discord.guild, msg: discord.Embed or str) -> None:
+    async def send_to_main_channel(self, guild: discord.guild, msg: discord.Embed or str) -> discord.Message:
         for channel in guild.channels:
             if channel.name == self.bound_channel and type(channel) == discord.TextChannel:
                 if type(msg) == discord.Embed:
-                    await channel.send(embed=msg)
+                    return await channel.send(embed=msg)
                 else:
-                    await channel.send(msg)
+                    return await channel.send(msg)

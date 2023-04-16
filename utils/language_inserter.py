@@ -67,7 +67,12 @@ data = [
     ["clean_channel_success", "cleaner", "30,201,0", "Erfolg", "Es wurden 100 Nachrichten gelöscht!"],
     ["help_success", "help", "30,201,0", "Erfolg", "Der Bot akzeptiert folgende Befehle:\n\n%s"],
     ["languages_success", "languages", "30,201,0", "Erfolg", "Der Bot akzeptiert folgende Sprachen:\n\n%s"],
-    ["language_success", "language", "30,201,0", "Erfolg", "Die neue Sprache ist jetzt %s!"]
+    ["language_success", "language", "30,201,0", "Erfolg", "Die neue Sprache ist jetzt %s!"],
+
+    # Disconnecting
+    ["abort_disconnect", "disconnect", "140,0,0", "Fehler", "Das Trennen des Bots vom Sprachkanal wurde unterbrochen! "],
+    ["disconnecting", "disconnect", "30,201,0", "Erfolg", "Der Bot trennt die Verbindung in %s Sekunden!"],
+    ["disconnected", "disconnect", "30,201,0", "Erfolg", "Der Bot hat die Verbindung getrennt!"]
 ]
 
 
@@ -91,7 +96,7 @@ for lang in data:
 
 def delete_values():
     cursor = connection.cursor()
-    sql_statement = "DELETE FROM responses"
+    sql_statement = "DELETE FROM responses WHERE language_id=0"
     cursor.execute(sql_statement)
     connection.commit()
     print(cursor.rowcount, "record(s) deleted")
@@ -125,7 +130,7 @@ def insert_values():
 delete_values()
 
 # Resets Auto increment value
-update_auto_increment()
+# update_auto_increment()
 
 # Insert new responses
 insert_values()
