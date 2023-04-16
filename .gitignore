@@ -1,12 +1,7 @@
-# Files
 .cache
 *.pyc
-<<<<<<< HEAD
-=======
 database/Dump.sql
->>>>>>> 16a2ee9966b5ad1420a3fe2cd81d517fe35ae472
 tokens.json
-
-# Folders
 _pycache_/
 .idea/
+utils/

@@ -32,6 +32,13 @@ def get_german_responses() -> list:
     return responses
 
 
+def delete_other_responses():
+    sql_statement = """DELETE FROM responses WHERE language_id != 0"""
+    cursor = connection.cursor()
+    cursor.execute(sql_statement)
+    connection.commit()
+
+
 def create_json_file(langs: list):
     print("Inserting responses!")
     json_string = json.dumps(langs)
@@ -111,12 +118,21 @@ def translate_responses() -> list:
                     'body': body
                 }
                 language['responses'].append(translated_response)
-                sleep(1)
+                sleep(.125)
             languages.append(language)
         else:
             found = True
     return languages
 
 
-languages = read_json_file("saved_responses.json")
+# Delete all responses
+delete_other_responses()
+
+# Get translated responses
+languages = translate_responses()
+
+# Create json with new responses
+create_json_file(languages)
+
+# Insert data to database
 insert_data(languages)
