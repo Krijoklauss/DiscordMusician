@@ -1,6 +1,7 @@
 # Imports
 import sys
 import discord
+import logging
 import control.MusicHandler as MusicHandler
 from pynput import keyboard
 from control.model.Command import Command
@@ -78,6 +79,7 @@ async def on_message(message: discord.message):
     # Create new command
     command = Command(musician, message)
 
+    # Execute command and get response
     if musician.bound_channel == "" and command.command != "bind":
         await message.delete()
         response = create_discord_response(musician.language_id, "None", "no_channel_bound")
@@ -88,12 +90,16 @@ async def on_message(message: discord.message):
     else:
         response = await command.execute()
 
+    # Print response from command
     if response is None:
         return
     elif type(response) == discord.Embed:
         await channel.send(embed=response)
     else:
         await channel.send(response)
+
+    # Disconnect if required
+    await musician.init_disconnect(guild)
 
 
 def on_press(key):
@@ -106,7 +112,7 @@ def _close():
     # Store musician values
     database.save_musicians(MusicHandler.musicians)
     # Close program
-    # os._exit(0)
+    quit()
 
 
 # Main running loop
@@ -121,7 +127,7 @@ def _run():
         listener.start()
 
         # Run discord client
-        client.run(TOKEN)
+        client.run(TOKEN, log_level=logging.WARN)
     except:
         print("Fatal Error!")
         print("Stopping Musician...")
