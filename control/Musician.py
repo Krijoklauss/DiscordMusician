@@ -242,17 +242,24 @@ class Musician:
                 self.abort_disconnect = True
 
             # Read parameter
-            tts_string = "Failed"
+            tts_string = ""
+            starting_point = 0
             lang_code = get_language_data(self.language_id)['country_code']
+
+            # Change language on parameter -l
             if parameter[0] == '-l':
                 try:
+                    starting_point = 2
                     lang_code = parameter[1]
-                    for i in range(2, len(parameter)-1):
-                        tts_string += parameter[i]
                 except IndexError:
                     return create_discord_response(self.language_id, "say", "say_failed_parameter")
-            else:
-                tts_string = parameter[0]
+
+            # Create tts_string
+            try:
+                for i in range(starting_point, len(parameter)):
+                    tts_string += parameter[i]
+            except IndexError:
+                return create_discord_response(self.language_id, "say", "say_failed_parameter")
 
             # MP3 File
             sound_data = SongFetcher.create_tss_file(lang_code, tts_string)
