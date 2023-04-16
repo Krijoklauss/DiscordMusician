@@ -16,7 +16,7 @@ class DatabaseConnection:
         self.check_connection()
 
     def is_windows(self):
-        print("OS: " + os.name)
+        print("Operating system is " + str(os.name))
         if os.name == 'nt':
             return True
         return False
@@ -115,6 +115,7 @@ class DatabaseConnection:
             bound_channel=VALUES(bound_channel),
             language_id=VALUES(language_id);
         """
+
         # Send data
         cursor = self.connection.cursor()
         cursor.execute(sql_statement)

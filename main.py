@@ -2,11 +2,10 @@
 import sys
 import discord
 import logging
-import control.MusicHandler as MusicHandler
-from pynput import keyboard
 from control.model.Command import Command
-from control.DatabaseConnection import DatabaseConnection
+import control.MusicHandler as MusicHandler
 from control.model.utility.SongFetcher import init_apis
+from control.DatabaseConnection import DatabaseConnection
 from control.model.utility.Responses import init_responses
 from control.model.utility.Responses import create_discord_response
 
@@ -102,16 +101,16 @@ async def on_message(message: discord.message):
     await musician.init_disconnect(guild)
 
 
-def on_press(key):
-    if key == keyboard.Key.esc:
-        print("Saving values...")
-        # _close()
+def press(key):
+    print("Key => " + str(key))
 
 
 def _close():
     # Store musician values
+    print("Saving values...")
     database.save_musicians(MusicHandler.musicians)
     # Close program
+    print("Closing program!")
     quit()
 
 
@@ -121,17 +120,12 @@ def _run():
 
     try:
         print("Initializing Bot...")
-
-        # Create Keyboard listener
-        listener = keyboard.Listener(on_press=on_press)
-        listener.start()
-
         # Run discord client
         client.run(TOKEN, log_level=logging.WARN)
     except:
         print("Fatal Error!")
         print("Stopping Musician...")
-        _close()
+    _close()
 
 
 # Check filename
