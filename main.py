@@ -101,10 +101,6 @@ async def on_message(message: discord.message):
     await musician.init_disconnect(guild)
 
 
-def press(key):
-    print("Key => " + str(key))
-
-
 def _close():
     # Store musician values
     print("Saving values...")
