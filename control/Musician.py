@@ -171,6 +171,10 @@ class Musician:
                     self.looping = False
                     break
 
+                # Abort disconnect if still playing music!
+                if self.disconnecting:
+                    self.abort_disconnect = True
+
                 # After checking add progress
                 self.current_progress += 1
         
@@ -288,8 +292,9 @@ class Musician:
         my_message = None
         wait_until_disconnect = 30
         for time_over in range(wait_until_disconnect):
+
             # Abort disconnect
-            if self.voice_connection is None or not self.voice_connection.is_connected():
+            if self.voice_connection is None or not self.voice_connection.is_connected() or self.voice_connection.is_playing() or self.voice_connection.is_paused():
                 self.abort_disconnect = False
                 self.disconnecting = False
                 await self.send_to_main_channel(guild, create_discord_response(self.language_id, "disconnect", "abort_disconnect"))
