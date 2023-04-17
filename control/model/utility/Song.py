@@ -27,6 +27,12 @@ class Song:
                 pass
             tries += 1
 
+        if video is None or video['streamingData']['adaptiveFormats'] is None:
+            print("No streaming data found!")
+            print("Debugging video:")
+            print(video)
+            return None
+
         for form in video['streamingData']['adaptiveFormats']:
             if form['mimeType'] == allowed_opus:
                 if form['itag'] > itag_largest:
