@@ -79,7 +79,15 @@ def insert_data(langs: list):
 def translate_responses() -> list:
     found = False
     languages = []
-    german_responses = get_german_responses()
+
+    # Single language update
+    german_responses = [
+        ["added_playlist", "play", "0x1ec900", "Erfolg", "Die Songs der Playlist wurden zur Warteschlange hinzugefügt!"]
+    ]
+
+    # Multiple Language updates
+    # german_responses = get_german_responses()
+
     supported_languages = GoogleTranslator().get_supported_languages(as_dict=True)
 
     for index, key in enumerate(supported_languages, 1):
@@ -98,25 +106,37 @@ def translate_responses() -> list:
 
             translator = GoogleTranslator(source="de", target=c_code)
             for response in german_responses:
-                print("\rTranslate nr. " + str(response[0]), end="")
+                print("\rTranslating language...", end="")
                 headline = None
                 body = None
                 while headline is None or body is None:
                     try:
-                        headline = translator.translate(response[5])
-                        body = translator.translate(response[6])
+                        headline = translator.translate(response[3])
+                        body = translator.translate(response[4])
                     except:
                         translator = GoogleTranslator(source="de", target=c_code)
                         sleep(1)
 
+                # Auto language updates
+                # translated_response = {
+                #    'identifier': response[1],
+                #    'command': response[2],
+                #    'color': response[3],
+                #    'language_id': lang_id,
+                #    'headline': headline,
+                #    'body': body
+                # }
+
+                # Manual language update
                 translated_response = {
-                    'identifier': response[1],
-                    'command': response[2],
-                    'color': response[3],
+                    'identifier': response[0],
+                    'command': response[1],
+                    'color': response[2],
                     'language_id': lang_id,
                     'headline': headline,
                     'body': body
                 }
+
                 language['responses'].append(translated_response)
                 sleep(.125)
             languages.append(language)
@@ -126,13 +146,14 @@ def translate_responses() -> list:
 
 
 # Delete all responses
-delete_other_responses()
+# delete_other_responses()
 
 # Get translated responses
-languages = translate_responses()
+# languages = translate_responses()
+languages = read_json_file("custom.json")
 
 # Create json with new responses
-create_json_file(languages)
+# create_json_file(languages)
 
 # Insert data to database
 insert_data(languages)

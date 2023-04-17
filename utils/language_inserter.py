@@ -46,31 +46,49 @@ data = [
     ["language_failed", "language", "140,0,0", "Fehler", "Diese Sprache existiert nicht!"],
 
     # Execution success
+    # Bind
     ["bind_success", "bind", "30,201,0", "Erfolg", "Der neue Channel für %s lautet nun %s!"],
+    # Prefix
     ["prefix_success", "prefix", "30,201,0", "Erfolg", "Der neue prefix lautet nun %s!"],
+    # Nick
     ["nick_success", "nick", "30,201,0", "Erfolg", "Der neue nickname lautet nun %s!"],
+    # Play
     ["now_playing", "play", "30,201,0", "Erfolg", "Der Song %s wird jetzt abgespielt!"],
     ["empty_queue", "play", "30,201,0", "Erfolg", "Die Warteschlange hat keine Songs mehr zum abspielen!"],
     ["added_song", "play", "30,201,0", "Erfolg", "Der Song %s wurde zur Warteschlange hinzugefügt!"],
+    ["added_playlist", "play", "30,201,0", "Erfolg", "Die Songs der Playlist wurden zur Warteschlange hinzugefügt!"],
+    # Skip
     ["skip_success", "skip", "30,201,0", "Erfolg", "Der Song %s wurde übersprungen!"],
+    # Resume
     ["resume_success", "resume", "30,201,0", "Erfolg", "Der Song %s wird nun weiter abgespielt!"],
+    # Pause
     ["pause_success", "pause", "30,201,0", "Erfolg", "Der Song %s wurde pausiert!"],
+    # Stop
     ["stop_success", "stop", "30,201,0", "Erfolg", "Das Abspielen von Musik wurde unterbunden!"],
+    # Loop
     ["loop_passive", "loop", "30,201,0", "Erfolg", "Der Song loop wurde nun deaktiviert!"],
     ["loop_active", "loop", "30,201,0", "Erfolg", "Der Song loop wurde nun aktiviert!"],
+    # Loopqueue
     ["loopqueue_passive", "loopqueue", "30,201,0", "Erfolg", "Der Queue loop wurde nun deaktiviert!"],
     ["loopqueue_active", "loopqueue", "30,201,0", "Erfolg", "Der Queue loop wurde nun aktiviert!"],
+    # Queue
     ["queue_success", "queue", "30,201,0", "Erfolg", "Die Warteschlange auf Seite %s sieht wie folgt aus: \n %s"],
+    # Clear
     ["clear_success", "clear", "30,201,0", "Erfolg", "Die queue wurde geleert!"],
+    # Say
     ["say_success", "say", "30,201,0", "Erfolg", "%s"],
+    # Currently Playing
     ["show_current_song_success", "show_current_song", "30,201,0", "Erfolg", "Youtube: %s\nName: %s\nChannel: %s\nAufrufe: %s\n%s\nUploaded: %s"],
+    # Cleaner
     ["clean_channel_success", "cleaner", "30,201,0", "Erfolg", "Es wurden 100 Nachrichten gelöscht!"],
+    # Help
     ["help_success", "help", "30,201,0", "Erfolg", "Der Bot akzeptiert folgende Befehle:\n\n%s"],
+    # Languages
     ["languages_success", "languages", "30,201,0", "Erfolg", "Der Bot akzeptiert folgende Sprachen:\n\n%s"],
+    # Language
     ["language_success", "language", "30,201,0", "Erfolg", "Die neue Sprache ist jetzt %s!"],
-
     # Disconnecting
-    ["abort_disconnect", "disconnect", "140,0,0", "Fehler", "Das Trennen des Bots vom Sprachkanal wurde unterbrochen! "],
+    ["abort_disconnect", "disconnect", "30,201,0", "Erfolg", "Das Trennen des Bots vom Sprachkanal wurde unterbrochen! "],
     ["disconnecting", "disconnect", "30,201,0", "Erfolg", "Der Bot trennt die Verbindung in %s Sekunden!"],
     ["disconnected", "disconnect", "30,201,0", "Erfolg", "Der Bot hat die Verbindung getrennt!"]
 ]
