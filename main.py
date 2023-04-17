@@ -13,8 +13,8 @@ from control.model.utility.Responses import create_discord_response
 sys.dont_write_bytecode = True
 
 # Predefined values
-MOTD = "Launching Musician V2!"
-HOST_TYPE = "MUSIC_BOT_SNAPSHOT"
+MOTD = "an deiner Mutter"
+HOST_TYPE = "MUSIC_BOT"
 database = DatabaseConnection()
 TOKEN = database.get_token(HOST_TYPE)
 
@@ -117,10 +117,9 @@ def _run():
     try:
         print("Initializing Bot...")
         # Run discord client
-        client.run(TOKEN, log_level=logging.WARN)
+        client.run(TOKEN)
     except:
         print("Fatal Error!")
-        print("Stopping Musician...")
     _close()
 
 

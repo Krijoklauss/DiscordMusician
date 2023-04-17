@@ -84,14 +84,15 @@ class Musician:
         self.current_progress = 0
 
     async def connect(self, guild: discord.guild, author: str) -> discord.voice_client or None:
-        for channel in guild.channels:
-            if type(channel) == discord.VoiceChannel:
-                for member in channel.members:
-                    if member.name == author:
-                        try:
-                            return await channel.connect(timeout=60, reconnect=True)
-                        except:
-                            return self.voice_connection
+        if self.voice_connection is None or not self.voice_connection.is_connected():
+            for channel in guild.channels:
+                if type(channel) == discord.VoiceChannel:
+                    for member in channel.members:
+                        if member.name == author:
+                            try:
+                                return await channel.connect(timeout=60, reconnect=True)
+                            except:
+                                return self.voice_connection
         return self.voice_connection
                         
     async def play(self, guild: discord.guild, parameter: list, author: str) -> discord.Embed or None:
@@ -245,10 +246,8 @@ class Musician:
     async def say(self, guild: discord.guild, parameter: list, author: str) -> discord.Embed:
         self.voice_connection = await self.connect(guild, author)
         if self.voice_connection is not None and not self.voice_connection.is_playing() and not self.voice_connection.is_paused():
-
             if self.disconnecting:
                 self.abort_disconnect = True
-
             # Read parameter
             tts_string = ""
             starting_point = 0
