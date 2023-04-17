@@ -102,9 +102,17 @@ class Musician:
 
         created_queue = SongFetcher.create_queue(parameter)
         if len(created_queue) > 0:
+
+            # Added Playlist
+            if len(created_queue) > 1:
+                await self.send_to_main_channel(guild, create_discord_response(self.language_id, "play", "added_playlist"))
+
             for song in created_queue:
                 self.queue.append(song)
-                await self.send_to_main_channel(guild, create_discord_response(self.language_id, "play", "added_song", values=(str(song.name))))
+
+                # Added single Song
+                if len(created_queue) < 2:
+                    await self.send_to_main_channel(guild, create_discord_response(self.language_id, "play", "added_song", values=(str(song.name))))
         else:
             return create_discord_response(self.language_id, "play", "queue_creation_failed")
 
