@@ -15,7 +15,7 @@ class Command:
         self.username = command.author.name
         self.text_channel = command.channel.name
         self.content = command.content
-        self.create_command()
+        self.correct_syntax = self.create_command()
 
     def create_command(self) -> bool:
         if self.content.startswith(self.musician.prefix):

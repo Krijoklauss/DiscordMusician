@@ -82,10 +82,14 @@ async def on_message(message: discord.message):
     if musician.bound_channel == "" and command.command != "bind":
         await message.delete()
         response = create_discord_response(musician.language_id, "None", "no_channel_bound")
+    # Checking if the bind command was executed
     elif musician.bound_channel == "" and command.command == "bind":
         response = await command.execute()
+    # Checking if the channel is correct
     elif musician.bound_channel != message.channel.name:
-        response = create_discord_response(musician.language_id, "None", "wrong_channel")
+        response = None
+        if command.correct_syntax:
+            response = create_discord_response(musician.language_id, "None", "wrong_channel")
     else:
         response = await command.execute()
 
