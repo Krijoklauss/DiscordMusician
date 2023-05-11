@@ -1,4 +1,5 @@
 import discord
+from pytube import YouTube
 from youtubesearchpython import Video
 
 
@@ -16,29 +17,8 @@ class Song:
         }
 
     def fetch_link(self, allowed_opus="audio/webm; codecs=\"opus\"") -> str or None:
-        player_link = None
-        itag_largest = 0
-        tries = 0
-        video = None
-        while video is None and tries < 3:
-            try:
-                video = Video.get(self.youtube_link)
-            except TypeError:
-                pass
-            tries += 1
-
-        if video is None or video['streamingData']['adaptiveFormats'] is None:
-            print("No streaming data found!")
-            print("Debugging video:")
-            print(video)
-            return None
-
-        for form in video['streamingData']['adaptiveFormats']:
-            if form['mimeType'] == allowed_opus:
-                if form['itag'] > itag_largest:
-                    player_link = form['url']
-                    itag_largest = form['itag']
-        return player_link
+        audio = YouTube(self.youtube_link).streams.get_audio_only()
+        return audio.url
 
     def init_audio_source(self) -> discord.FFmpegPCMAudio or None:
         tries = 0
