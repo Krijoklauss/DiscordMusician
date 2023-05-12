@@ -21,13 +21,7 @@ class Song:
         return audio.url
 
     def init_audio_source(self) -> discord.FFmpegPCMAudio or None:
-        tries = 0
-        max_tries = 3
         player_link = self.fetch_link()
-        while player_link is None and tries < max_tries:
-            player_link = self.fetch_link()
-            tries += 1
-
         if player_link is None:
             return None
 

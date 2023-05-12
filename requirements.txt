@@ -5,10 +5,7 @@ discord
 spotipy
 
 # Search for YouTube videos and playlists
-ytdl
-yt-dlp
-youtube_dl
-youtube-search-python
+pytube
 
 # Utilities
 pynacl
@@ -20,3 +17,8 @@ mysql-connector-python
 
 # Keyboard Listener
 pynput
+
+# Old stuff
+ytdl
+yt-dlp
+youtube_dl
