@@ -3,17 +3,16 @@ import os
 import discord
 import spotipy
 from gtts import gTTS
+from pytube import Search
+from pytube import YouTube
+from pytube import Playlist
 from datetime import datetime
 from gtts.tts import gTTSError
 from gtts.lang import tts_langs
-from youtubesearchpython import Video
-from youtubesearchpython import Playlist
-from youtubesearchpython import VideosSearch
 from spotipy import SpotifyClientCredentials
 from control.model.utility.Song import Song
 
 spotify = None
-
 
 def init_apis(host_type: str, database):
     global spotify
@@ -22,49 +21,6 @@ def init_apis(host_type: str, database):
     spotify_secrets = database.get_spotify_api_secrets(host_type)
     client_credentials_manager = SpotifyClientCredentials(spotify_secrets[0], spotify_secrets[1])
     spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-
-def parse_duration(duration_string: str) -> int:
-    # Calculate video duration
-    duration = 0
-    length_splitter = duration_string.split(':')
-    if len(length_splitter) == 1:
-        duration = int(length_splitter[0])
-    elif len(length_splitter) == 2:
-        seconds = int(length_splitter[1])
-        minutes = int(length_splitter[0]) * 60
-        duration = seconds + minutes
-    elif len(length_splitter) == 3:
-        seconds = int(length_splitter[2])
-        minutes = int(length_splitter[1]) * 60
-        hours = int(length_splitter[0]) * 60 * 60
-        duration = seconds + minutes + hours
-    return duration
-
-
-def parse_video_duration(duration_string: str) -> int:
-    is_duration = "^PT((\d+)H)*((\d+)M)*((\d+)S)*$"
-    groups = re.match(is_duration, duration_string).groups()
-    # Hours
-    hours = groups[1]
-    if hours is None:
-        hours = 0
-    else:
-        hours = int(hours) * 60 * 60
-    # Minutes
-    minutes = groups[3]
-    if minutes is None:
-        minutes = 0
-    else:
-        minutes = int(minutes) * 60
-    # Seconds
-    seconds = groups[5]
-    if seconds is None:
-        seconds = 0
-    else:
-        seconds = int(seconds)
-    total_time_in_seconds = hours + minutes + seconds
-    return int(total_time_in_seconds)
 
 
 def create_queue(arguments: list) -> list:
@@ -97,43 +53,43 @@ def create_queue(arguments: list) -> list:
 
 
 def get_youtube_song(youtube_link: str) -> list:
-    tries = 0
-    video_information = None
-    while video_information is None and tries < 3:
-        try:
-            video_information = Video.get(youtube_link)
-        except TypeError:
-            pass
-        tries += 1
-    name = video_information['title']
-    artist = video_information['channel']['name']
-    length = int(video_information['duration']['secondsText'])
-    view_count = int(video_information['viewCount']['text'])
-    publish_date = video_information['publishDate']
+    video = YouTube(youtube_link)
+    name = video.title
+    artist = video.author
+    length = video.length
+    view_count = video.views
+    publish_date = video.publish_date
     return [Song(youtube_link, name, artist, length, clicks=view_count, release=publish_date)]
 
 
 def get_youtube_playlist(youtube_playlist_link: str) -> list:
     songs = []
-    playlist_information = Playlist.get(youtube_playlist_link)
-    for video in playlist_information['videos']:
-        name = video['title']
-        artist = video['channel']['name']
-        youtube_link = "https://www.youtube.com/watch?v=" + video['id']
-        duration = parse_duration(video['duration'])
+    playlist = Playlist(youtube_playlist_link)
+
+    _max_amount = 100
+    for i, video in enumerate(playlist.videos):
+
+        # Allow a maximum of 100 Songs from Playlists
+        if i >= 100:
+            break
+
+        # Get Information
+        name = video.title
+        artist = video.author
+        youtube_link = video.watch_url
+        duration = video.length
         songs.append(Song(youtube_link, name, artist, duration))
     return songs
 
 
 def get_youtube_queue(query: str) -> list:
-    video_search_results = VideosSearch(query, limit=5).result()
-    metadata = video_search_results['result'][0]
-    youtube_link = "https://www.youtube.com/watch?v=" + str(metadata['id'])
-    name = metadata['title']
-    artist = metadata['channel']['name']
-    length = parse_duration(metadata['duration'])
-    views = metadata['viewCount']['short']
-    publish_date = metadata['publishedTime']
+    video = Search(query).results[0]
+    youtube_link = video.watch_url
+    name = video.title
+    artist = video.author
+    length = video.length
+    views = video.views
+    publish_date = video.publish_date
     return [Song(youtube_link, name, artist, length, clicks=views, release=publish_date)]
 
 
